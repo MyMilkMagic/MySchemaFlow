@@ -2,8 +2,8 @@ import { useCanvasStore } from '@stores/Canvas';
 import {
   calculateEdgePosition,
   getActiveEdges,
-} from '~/utilities/CanvasHelper';
-import { vueFlowKey } from '~/symbols/VueFlowSymbol';
+} from '@/utilities/CanvasHelper';
+import { vueFlowKey } from '@/symbols/VueFlowSymbol';
 import { inject, nextTick } from 'vue';
 
 export function useEdgePositionCalculator() {

@@ -4,6 +4,9 @@ import { useNodeAutoLayout } from '~/composables/Nodes/useNodeAutoLayout';
 import { TestNodes, TestEdges } from '@dummy/CanvasDummy';
 import { VueFlow } from '@vue-flow/core';
 import { useVueFlow } from '@vue-flow/core';
+import { MiniMap } from '@vue-flow/minimap';
+import { Controls } from '@vue-flow/controls';
+import { Background } from '@vue-flow/background';
 
 const nodes = ref(TestNodes);
 const edges = ref(TestEdges);
@@ -25,7 +28,7 @@ onPaneReady(() => {
           type: 'smoothstep',
         }"
         :default-viewport="{
-          zoom: 0.5,
+          zoom: 1,
         }"
         :min-zoom="0.1"
         :max-zoom="1"
@@ -35,6 +38,14 @@ onPaneReady(() => {
         :multi-selection-key-code="null"
         class="h-screen w-full"
       >
+        <MiniMap pannable zoomable />
+        <Controls />
+        <Background
+          class="h-full"
+          pattern-color="#171A22"
+          :gap="20"
+          variant="dots"
+        />
         <template #node-custom="{ data }">
           <CustomNode :data="data" />
         </template>

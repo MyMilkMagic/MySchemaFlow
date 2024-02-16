@@ -1,7 +1,7 @@
 import dagre from 'dagre';
 import { klona } from 'klona/full';
-import type { TEdge, TNode } from '@stores/Canvas';
 import { Position } from '@vue-flow/core';
+import type { TEdge, TNode } from '@stores/Canvas';
 
 /**
  * Calculate node positions based on the node direction and layout them properly

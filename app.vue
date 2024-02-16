@@ -7,6 +7,7 @@ provide(vueFlowKey, useVueFlow());
 </script>
 
 <template>
-  <p class="font-dm-mono text-3xl">Hello</p>
-  <CanvasBoard />
+  <div class="font-dm">
+    <CanvasBoard />
+  </div>
 </template>

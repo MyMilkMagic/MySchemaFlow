@@ -6,11 +6,16 @@ export default defineNuxtConfig({
   css: [
     '@vue-flow/core/dist/style.css',
     '@vue-flow/core/dist/theme-default.css',
+    '@vue-flow/minimap/dist/style.css',
+    '@vue-flow/controls/dist/style.css',
   ],
   alias: {
     '@components': '../components',
     '@dummy': '../dummy',
     '@stores': '../stores',
+    '@utilities': '../utilities',
+    '@composables': '../composables',
+    '@symbols': '../symbols',
   },
   devtools: { enabled: true },
   modules: [
@@ -20,6 +25,7 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@vue-macros/nuxt',
     '@nuxtjs/google-fonts',
+    'nuxt-icon',
   ],
   eslint: {
     lintOnStart: false,

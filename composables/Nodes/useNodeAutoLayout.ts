@@ -1,7 +1,7 @@
 import { useSettingsStore } from '@stores/Settings';
-import { useEdgePositionCalculator } from '~/composables/Edges/useEdgePositionCalculator';
-import { autoLayoutNodes } from '~/utilities/CanvasHelper';
-import { vueFlowKey } from '~/symbols/VueFlowSymbol';
+import { useEdgePositionCalculator } from '@composables/Edges/useEdgePositionCalculator';
+import { autoLayoutNodes } from '@utilities/CanvasHelper';
+import { vueFlowKey } from '@symbols/VueFlowSymbol';
 import { inject } from 'vue';
 
 export function useNodeAutoLayout() {
