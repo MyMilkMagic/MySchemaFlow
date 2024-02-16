@@ -7,6 +7,7 @@ import LayoutChanger from '@components/Modules/Toolbar/Partials/LayoutChanger.vu
 import SaveButton from '@components/Modules/Toolbar/Partials/SaveButton.vue';
 import Redo from '@components/Modules/Toolbar/Partials/Redo.vue';
 import Undo from '@components/Modules/Toolbar/Partials/Undo.vue';
+import Settings from '@components/Modules/Toolbar/Partials/Settings.vue';
 </script>
 <template>
   <nav
@@ -25,6 +26,7 @@ import Undo from '@components/Modules/Toolbar/Partials/Undo.vue';
     <div class="flex">
       <ImportFile class="mr-1" />
       <ExportFile />
+      <Settings />
     </div>
   </nav>
 </template>
