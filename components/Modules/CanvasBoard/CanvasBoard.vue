@@ -4,7 +4,6 @@ import { useNodeAutoLayout } from '~/composables/Nodes/useNodeAutoLayout';
 import { TestNodes, TestEdges } from '@dummy/CanvasDummy';
 import { VueFlow } from '@vue-flow/core';
 import { useVueFlow } from '@vue-flow/core';
-import { ref } from 'vue';
 
 const nodes = ref(TestNodes);
 const edges = ref(TestEdges);

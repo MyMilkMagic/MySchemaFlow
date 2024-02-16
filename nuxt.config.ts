@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   imports: {
-    autoImport: false,
+    autoImport: true,
   },
   css: [
     '@vue-flow/core/dist/style.css',
