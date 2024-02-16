@@ -9,10 +9,10 @@ console.log(props.data);
 </script>
 <template>
   <div
-    class="bg-white font-dm-mono border-2 border-blue-950 rounded-xl w-[400px] overflow-hidden"
+    class="w-[400px] overflow-hidden rounded-xl border-2 border-blue-950 bg-white font-dm-mono"
   >
     <p
-      class="px-2 py-2 text-blue-950 border-b-2 border-b-blue-950 font-black truncate text-center"
+      class="truncate border-b-2 border-b-blue-950 px-2 py-2 text-center font-black text-blue-950"
     >
       {{ data.table.name }}
     </p>
@@ -20,9 +20,9 @@ console.log(props.data);
       v-for="column in data.table.columns"
       :key="column.name"
       type="button"
-      class="flex px-2 py-1 font-black items-center w-full group hover:bg-blue-500"
+      class="group flex w-full items-center px-2 py-1 font-black hover:bg-blue-500"
     >
-      <span class="text-xl block flex-shrink-0">
+      <span class="block flex-shrink-0 text-xl">
         <Icon
           v-if="column.keyConstraint === 'PK'"
           name="solar:key-bold-duotone"
@@ -40,11 +40,11 @@ console.log(props.data);
         />
       </span>
       <span
-        class="block text-sm ml-1 text-left text-blue-950 flex-grow w-full truncate group-hover:text-white"
+        class="ml-1 block w-full flex-grow truncate text-left text-sm text-blue-950 group-hover:text-white"
         >{{ column.name }}</span
       >
       <span
-        class="block text-sm w-full flex-grow truncate group-hover:text-white text-blue-500 text-center"
+        class="block w-full flex-grow truncate text-center text-sm text-blue-500 group-hover:text-white"
         >{{ column.type }}</span
       >
     </button>
