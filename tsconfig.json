@@ -1,33 +1,4 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
-
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "allowJs": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "jsx": "preserve",
-    "strict": true,
-    "isolatedModules": true,
-    "target": "ESNext",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "skipLibCheck": true,
-    "types": ["unplugin-vue-macros/macros-global"],
-    "paths": {
-      "@/*": ["./resources/js/*"],
-      "ziggy-js": ["./vendor/tightenco/ziggy"]
-    }
-  },
-  "vueCompilerOptions": {
-    "target": 3,
-    "plugins": ["@vue-macros/volar/define-models"],
-    "vueMacros": {
-      "defineModels": {
-        "unified": true
-      }
-    }
-  },
 }
