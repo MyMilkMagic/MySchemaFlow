@@ -19,7 +19,7 @@ onPaneReady(() => {
 </script>
 
 <template>
-  <div class="h-screen">
+  <div class="h-[calc(100vh-45px)]">
     <ClientOnly>
       <VueFlow
         v-model:nodes="nodes"
