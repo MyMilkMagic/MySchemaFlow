@@ -19,8 +19,15 @@ export default defineNuxtConfig({
     '@nuxtjs/eslint-module',
     '@nuxtjs/google-fonts',
     '@vue-macros/nuxt',
+    '@nuxtjs/google-fonts',
   ],
   eslint: {
     lintOnStart: false,
+  },
+  googleFonts: {
+    families: {
+      'DM Sans': true,
+      'DM Mono': true,
+    },
   },
 });
