@@ -21,7 +21,6 @@ import Settings from '@components/Modules/Toolbar/Partials/Settings.vue';
     <div class="flex">
       <CreateTable class="mr-1" />
       <RunAutoLayout class="mr-1" />
-      <LayoutChanger />
     </div>
     <div class="flex">
       <ImportFile class="mr-1" />

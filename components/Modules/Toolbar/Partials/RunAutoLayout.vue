@@ -1,21 +1,37 @@
 <script lang="ts" setup>
-import BaseButton from '@components/Modules/Toolbar/Partials/BaseButton.vue';
+import BaseTooltipWithShortcutKeys from '@components/Base/BaseTooltipWithShortcutKeys.vue';
+import SharedChevronIcon from '@components/Shared/Icons/SharedChevronIcon.vue';
+import SharedHorizontalOrientationIcon from '@components/Shared/Icons/SharedHorizontalOrientationIcon.vue';
 </script>
 <template>
-  <BaseButton>
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 22 22"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 3.5H17.3C18.4201 3.5 18.9802 3.5 19.408 3.71799C19.7843 3.90973 20.0903 4.21569 20.282 4.59202C20.5 5.01984 20.5 5.57989 20.5 6.7V8C20.5 8.93188 20.5 9.39783 20.3478 9.76537C20.1448 10.2554 19.7554 10.6448 19.2654 10.8478C18.8978 11 18.4319 11 17.5 11M12 18.5H4.7C3.5799 18.5 3.01984 18.5 2.59202 18.282C2.21569 18.0903 1.90973 17.7843 1.71799 17.408C1.5 16.9802 1.5 16.4201 1.5 15.3V14C1.5 13.0681 1.5 12.6022 1.65224 12.2346C1.85523 11.7446 2.24458 11.3552 2.73463 11.1522C3.10218 11 3.56812 11 4.5 11M9.3 13.5H12.7C12.98 13.5 13.12 13.5 13.227 13.4455C13.3211 13.3976 13.3976 13.3211 13.4455 13.227C13.5 13.12 13.5 12.98 13.5 12.7V9.3C13.5 9.01997 13.5 8.87996 13.4455 8.773C13.3976 8.67892 13.3211 8.60243 13.227 8.5545C13.12 8.5 12.98 8.5 12.7 8.5H9.3C9.01997 8.5 8.87996 8.5 8.773 8.5545C8.67892 8.60243 8.60243 8.67892 8.5545 8.773C8.5 8.87996 8.5 9.01997 8.5 9.3V12.7C8.5 12.98 8.5 13.12 8.5545 13.227C8.60243 13.3211 8.67892 13.3976 8.773 13.4455C8.87996 13.5 9.01997 13.5 9.3 13.5ZM16.8 21H20.2C20.48 21 20.62 21 20.727 20.9455C20.8211 20.8976 20.8976 20.8211 20.9455 20.727C21 20.62 21 20.48 21 20.2V16.8C21 16.52 21 16.38 20.9455 16.273C20.8976 16.1789 20.8211 16.1024 20.727 16.0545C20.62 16 20.48 16 20.2 16H16.8C16.52 16 16.38 16 16.273 16.0545C16.1789 16.1024 16.1024 16.1789 16.0545 16.273C16 16.38 16 16.52 16 16.8V20.2C16 20.48 16 20.62 16.0545 20.727C16.1024 20.8211 16.1789 20.8976 16.273 20.9455C16.38 21 16.52 21 16.8 21ZM1.8 6H5.2C5.48003 6 5.62004 6 5.727 5.9455C5.82108 5.89757 5.89757 5.82108 5.9455 5.727C6 5.62004 6 5.48003 6 5.2V1.8C6 1.51997 6 1.37996 5.9455 1.273C5.89757 1.17892 5.82108 1.10243 5.727 1.0545C5.62004 1 5.48003 1 5.2 1H1.8C1.51997 1 1.37996 1 1.273 1.0545C1.17892 1.10243 1.10243 1.17892 1.0545 1.273C1 1.37996 1 1.51997 1 1.8V5.2C1 5.48003 1 5.62004 1.0545 5.727C1.10243 5.82108 1.17892 5.89757 1.273 5.9455C1.37996 6 1.51997 6 1.8 6Z"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </BaseButton>
+  <div class="flex overflow-hidden rounded">
+    <BaseTooltipWithShortcutKeys>
+      <button
+        type="button"
+        class="flex h-[30px] w-[40px] items-center justify-center bg-slate-300 stroke-slate-600 p-3.5 outline-none hover:bg-blue-500 hover:stroke-white"
+      >
+        <SharedHorizontalOrientationIcon />
+      </button>
+
+      <template #tooltip>
+        <slot name="tooltip">
+          <BaseTooltipLabel>Run AutoLayout</BaseTooltipLabel>
+        </slot>
+      </template>
+    </BaseTooltipWithShortcutKeys>
+    <BaseTooltipWithShortcutKeys>
+      <button
+        type="button"
+        class="flex h-[30px] w-[30px] items-center justify-center bg-slate-200 stroke-slate-600 p-2.5 outline-none hover:bg-blue-100 hover:stroke-blue-500"
+      >
+        <SharedChevronIcon />
+      </button>
+
+      <template #tooltip>
+        <slot name="tooltip">
+          <BaseTooltipLabel>Change Layout</BaseTooltipLabel>
+        </slot>
+      </template>
+    </BaseTooltipWithShortcutKeys>
+  </div>
 </template>
