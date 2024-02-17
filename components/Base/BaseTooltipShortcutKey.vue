@@ -6,7 +6,7 @@ defineProps<TProps>();
 </script>
 <template>
   <div class="flex items-center">
-    <span class="mr-1 text-xs font-semibold text-slate-500">
+    <span class="mr-1 text-xs font-bold text-slate-500">
       <slot></slot>
     </span>
 

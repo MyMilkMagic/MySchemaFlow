@@ -9,10 +9,10 @@ import BaseTooltipShortcutKey from '@components/Base/BaseTooltipShortcutKey.vue'
     <SharedUndoIcon />
     <template #tooltip>
       <BaseTooltipLabel>Undo</BaseTooltipLabel>
-      <BaseTooltipShortcutKey :keys="['Ctrl', 'Z']" class="mt-1">
+      <BaseTooltipShortcutKey :keys="['Ctrl', 'Z']" class="mt-3">
         Windows:
       </BaseTooltipShortcutKey>
-      <BaseTooltipShortcutKey :keys="['⌘', 'Z']" class="mt-1">
+      <BaseTooltipShortcutKey :keys="['⌘', 'Z']" class="mb-1 mt-2">
         macOS:
       </BaseTooltipShortcutKey>
     </template>

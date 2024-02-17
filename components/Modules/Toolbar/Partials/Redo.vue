@@ -9,10 +9,10 @@ import BaseTooltipShortcutKey from '@components/Base/BaseTooltipShortcutKey.vue'
     <SharedRedoIcon />
     <template #tooltip>
       <BaseTooltipLabel>Redo</BaseTooltipLabel>
-      <BaseTooltipShortcutKey :keys="['Ctrl', 'Y']" class="mt-1">
+      <BaseTooltipShortcutKey :keys="['Ctrl', 'Y']" class="mt-3">
         Windows:
       </BaseTooltipShortcutKey>
-      <BaseTooltipShortcutKey :keys="['⌘', 'Y']" class="mt-1">
+      <BaseTooltipShortcutKey :keys="['⌘', 'Y']" class="mb-1 mt-2">
         macOS:
       </BaseTooltipShortcutKey>
     </template>
