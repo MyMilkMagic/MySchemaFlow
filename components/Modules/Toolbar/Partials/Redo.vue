@@ -5,5 +5,6 @@ import SharedRedoIcon from '@components/Shared/Icons/SharedRedoIcon.vue';
 <template>
   <BaseNeutralButton type="button">
     <SharedRedoIcon />
+    <template #tooltip>Redo Action</template>
   </BaseNeutralButton>
 </template>

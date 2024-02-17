@@ -5,5 +5,6 @@ import BaseNeutralButton from '@components/Modules/Toolbar/Partials/BaseActionBu
 <template>
   <BaseNeutralButton disabled>
     <SharedUndoIcon />
+    <template #tooltip>Undo Action</template>
   </BaseNeutralButton>
 </template>
