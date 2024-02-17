@@ -1,9 +1,8 @@
 import NodeDummy from '@dummy/NodeDummy';
 import EdgesDummy from '@dummy/EdgesDummy';
 import { v4 as uuidv4 } from 'uuid';
-import type { TEdge, TNode } from '@stores/Canvas';
 
-const createNodes = (): Array<TNode> => {
+const createNodes = () => {
   const NodeKeys = Object.keys(NodeDummy);
   return NodeKeys.map((key, index) => {
     const Node = NodeDummy[key];
@@ -17,7 +16,7 @@ const createNodes = (): Array<TNode> => {
       return col;
     });
 
-    return <TNode>{
+    return {
       id: Node.id,
       type: 'custom',
       connectable: false,
@@ -37,9 +36,9 @@ const createNodes = (): Array<TNode> => {
   });
 };
 
-const createEdges = (): Array<TEdge> => {
+const createEdges = () => {
   return EdgesDummy.map((edge) => {
-    return <TEdge>{
+    return {
       id: uuidv4(),
       source: NodeDummy[edge.source.table].id,
       target: NodeDummy[edge.target.table].id,

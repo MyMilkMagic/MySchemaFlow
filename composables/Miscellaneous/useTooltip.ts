@@ -9,20 +9,12 @@ export function useTooltip(
   floatingArrow: Readonly<Ref<MaybeElement<HTMLElement>>>,
   isOpen: Ref<boolean>,
 ) {
-  const {
-    floatingStyles,
-    placement,
-    middlewareData,
-    x,
-    y,
-    strategy,
-    isPositioned,
-    update,
-  } = useFloating(sourceEl, floatingEl, {
-    middleware: [shift(), flip(), arrow({ element: floatingArrow })],
-    whileElementsMounted: autoUpdate,
-    open: isOpen,
-  });
+  const { floatingStyles, placement, middlewareData, x, y, isPositioned } =
+    useFloating(sourceEl, floatingEl, {
+      middleware: [shift(), flip(), arrow({ element: floatingArrow })],
+      whileElementsMounted: autoUpdate,
+      open: isOpen,
+    });
   const arrowStyles = computed(() => {
     return {
       left:
@@ -38,13 +30,15 @@ export function useTooltip(
   const ArrowWidth = 6;
   const Offset = 15;
 
-  const onBeforeEnter = (el: HTMLElement) => {
-    Object.assign(el.style, {
-      opacity: 0,
-      transform: `translateX(-10000%)`,
-    });
+  const onBeforeEnter = (el: Element) => {
+    if (el instanceof HTMLElement) {
+      Object.assign(el.style, {
+        opacity: 0,
+        transform: `translateX(-10000%)`,
+      });
+    }
   };
-  const onEnter = async (el: HTMLElement, done: () => void) => {
+  const onEnter = async (el: Element, done: () => void) => {
     await nextTick();
 
     const checkDOMExistence = () => {
@@ -53,25 +47,27 @@ export function useTooltip(
 
         const TranslateY = y.value + ArrowWidth;
 
-        //
-        Object.assign(el.style, {
-          opacity: 1,
-          transform: `translateX(${x.value}px) translateY(${TranslateY + Offset}px)`,
-        });
+        // Bottom part only
+        if (el instanceof HTMLElement) {
+          Object.assign(el.style, {
+            opacity: 1,
+            transform: `translateX(${x.value}px) translateY(${TranslateY + Offset}px)`,
+          });
 
-        anime({
-          targets: el,
-          translateY: TranslateY,
-          opacity: 1,
-          easing: 'easeOutExpo',
-          duration: 350,
-          complete: done,
-        });
+          anime({
+            targets: el,
+            translateY: TranslateY,
+            opacity: 1,
+            easing: 'easeOutExpo',
+            duration: 350,
+            complete: done,
+          });
+        }
       }, 150);
     };
     checkDOMExistence();
   };
-  const onLeave = (el: HTMLElement, done: () => void) => {
+  const onLeave = (el: Element, done: () => void) => {
     const TranslateY = y.value + ArrowWidth;
     anime({
       targets: el,
