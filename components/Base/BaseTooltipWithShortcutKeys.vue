@@ -27,7 +27,7 @@ const { arrowStyles, onBeforeEnter, onEnter, onLeave } = useTooltip(
         @enter="onEnter"
         @leave="onLeave"
       >
-        <span
+        <div
           v-if="showTooltip"
           ref="floatingEl"
           class="absolute z-50 block rounded border-[1px] border-blue-500 bg-white px-3 py-2 text-xs shadow-[inset_0_-3px_0_0_#3b82f687]"
@@ -37,13 +37,8 @@ const { arrowStyles, onBeforeEnter, onEnter, onLeave } = useTooltip(
             :style="arrowStyles"
             class="absolute block -translate-y-full border-[6px] border-transparent border-b-blue-500"
           />
-
-          <span class="font-semibold">
-            <slot name="tooltip"></slot>
-          </span>
-          <span></span>
-          <span></span>
-        </span>
+          <slot name="tooltip"></slot>
+        </div>
       </Transition>
     </Teleport>
   </div>

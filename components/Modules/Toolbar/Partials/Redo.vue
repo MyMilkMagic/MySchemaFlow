@@ -1,10 +1,20 @@
 <script lang="ts" setup>
-import BaseNeutralButton from '@components/Modules/Toolbar/Partials/BaseActionButton.vue';
 import SharedRedoIcon from '@components/Shared/Icons/SharedRedoIcon.vue';
+import BaseNeutralButton from '@components/Modules/Toolbar/Partials/BaseActionButton.vue';
+import BaseTooltipLabel from '@components/Base/BaseTooltipLabel.vue';
+import BaseTooltipShortcutKey from '@components/Base/BaseTooltipShortcutKey.vue';
 </script>
 <template>
-  <BaseNeutralButton type="button">
+  <BaseNeutralButton>
     <SharedRedoIcon />
-    <template #tooltip>Redo Action</template>
+    <template #tooltip>
+      <BaseTooltipLabel>Redo</BaseTooltipLabel>
+      <BaseTooltipShortcutKey :keys="['Ctrl', 'Y']" class="mt-1">
+        Windows:
+      </BaseTooltipShortcutKey>
+      <BaseTooltipShortcutKey :keys="['⌘', 'Y']" class="mt-1">
+        macOS:
+      </BaseTooltipShortcutKey>
+    </template>
   </BaseNeutralButton>
 </template>
