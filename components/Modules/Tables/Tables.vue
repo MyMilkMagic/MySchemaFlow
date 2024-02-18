@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SharedEllipsisIcon from '@components/Shared/Icons/SharedEllipsisIcon.vue';
+import ButtonOption from '@components/Modules/Tables/Partials/ButtonOption.vue';
 import { vueFlowKey } from '@symbols/VueFlowSymbol';
 
 const vueFlow = inject(vueFlowKey);
@@ -16,14 +16,10 @@ const tables = computed(() => {
     type="button"
   >
     <span
-      class="text-xs font-semibold text-slate-700 group-hover:text-blue-600 group-focus:text-blue-600"
+      class="truncate text-xs font-semibold text-slate-700 group-hover:text-blue-600 group-focus:text-blue-600"
     >
       {{ table }}</span
     >
-    <span
-      class="block w-[3px] stroke-slate-700 group-hover:stroke-blue-600 group-focus:stroke-blue-600"
-    >
-      <SharedEllipsisIcon />
-    </span>
+    <ButtonOption />
   </button>
 </template>

@@ -1,17 +1,28 @@
 <script lang="ts" setup>
-import { useFloating, autoUpdate, shift, flip } from '@floating-ui/vue';
+import { useFloating, autoUpdate, shift, flip, offset } from '@floating-ui/vue';
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap';
+import type { Placement } from '@floating-ui/vue';
 
-const props = defineProps<{
+type TProps = {
   showLayout: boolean;
-}>();
+  placement?: Placement;
+  offset?: number;
+};
+const props = withDefaults(defineProps<TProps>(), {
+  placement: 'bottom',
+  offset: 0,
+});
 const referenceEl = ref<HTMLButtonElement>();
 const floatingEl = ref<HTMLDivElement>();
 const { floatingStyles } = useFloating(referenceEl, floatingEl, {
-  middleware: [shift(), flip()],
+  placement: props.placement,
+  middleware: [shift(), flip(), offset(props.offset)],
   whileElementsMounted: autoUpdate,
 });
-const { activate, deactivate } = useFocusTrap(floatingEl);
+const { activate, deactivate } = useFocusTrap(floatingEl, {
+  allowOutsideClick: true,
+  returnFocusOnDeactivate: false,
+});
 
 watch(
   () => props.showLayout,
@@ -30,7 +41,7 @@ watch(
       <div
         v-if="showLayout"
         ref="floatingEl"
-        class="absolute z-50 block overflow-hidden rounded border-[1px] border-slate-300 bg-white text-xs shadow-[0_4px_14px_-3px_rgba(0,0,0,0.08)]"
+        class="absolute z-50 block"
         :style="floatingStyles"
       >
         <slot name="layout"></slot>

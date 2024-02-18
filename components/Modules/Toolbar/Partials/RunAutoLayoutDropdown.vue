@@ -47,24 +47,28 @@ onClickOutside(autoLayoutDropdownBtn, () => {
       </template>
     </BaseTooltipWithShortcutKeys>
     <template #layout>
-      <RunAutoLayoutDropdownButton
-        :is-active="settingsStore.currentOrientation === 'TB'"
-        @click="onClickRunAutoLayout('TB')"
+      <div
+        class="overflow-hidden rounded border-[1px] border-slate-300 bg-white text-xs shadow-[0_4px_14px_-3px_rgba(0,0,0,0.08)]"
       >
-        <template #icon>
-          <SharedVerticalOrientationIcon />
-        </template>
-        <template #text>Vertical Layout</template>
-      </RunAutoLayoutDropdownButton>
-      <RunAutoLayoutDropdownButton
-        :is-active="settingsStore.currentOrientation === 'LR'"
-        @click="onClickRunAutoLayout('LR')"
-      >
-        <template #icon>
-          <SharedHorizontalOrientationIcon />
-        </template>
-        <template #text>Horizontal Layout</template>
-      </RunAutoLayoutDropdownButton>
+        <RunAutoLayoutDropdownButton
+          :is-active="settingsStore.currentOrientation === 'TB'"
+          @click="onClickRunAutoLayout('TB')"
+        >
+          <template #icon>
+            <SharedVerticalOrientationIcon />
+          </template>
+          <template #text>Vertical Layout</template>
+        </RunAutoLayoutDropdownButton>
+        <RunAutoLayoutDropdownButton
+          :is-active="settingsStore.currentOrientation === 'LR'"
+          @click="onClickRunAutoLayout('LR')"
+        >
+          <template #icon>
+            <SharedHorizontalOrientationIcon />
+          </template>
+          <template #text>Horizontal Layout</template>
+        </RunAutoLayoutDropdownButton>
+      </div>
     </template>
   </BaseFloatingLayout>
 </template>
