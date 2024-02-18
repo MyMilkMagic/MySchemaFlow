@@ -74,7 +74,7 @@ export function useTooltip(
       translateY: TranslateY + Offset,
       opacity: 0,
       easing: 'easeOutExpo',
-      duration: 350,
+      duration: 150,
       complete: done,
     });
   };
