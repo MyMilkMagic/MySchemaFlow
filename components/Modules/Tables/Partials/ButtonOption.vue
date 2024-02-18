@@ -3,26 +3,31 @@ import BaseFloatingLayout from '@components/Base/BaseFloatingLayout.vue';
 import SharedEllipsisIcon from '@components/Shared/Icons/SharedEllipsisIcon.vue';
 import SharedTrashIcon from '@components/Shared/Icons/SharedTrashIcon.vue';
 import SharedCloneIcon from '@components/Shared/Icons/SharedCloneIcon.vue';
+import SharedRouteIcon from '@components/Shared/Icons/SharedRouteIcon.vue';
 import ButtonOptionItem from '@components/Modules/Tables/Partials/ButtonOptionItem.vue';
 import ButtonOptionItemDanger from '@components/Modules/Tables/Partials/ButtonOptionItemDanger.vue';
+import { useTableJump } from '@composables/Canvas/useTableJump';
 
+defineProps<{
+  nodeId: string;
+}>();
 const showFloatingLayout = ref(false);
 const optionsBtn = ref<HTMLButtonElement>();
-
+const { jumpIntoView } = useTableJump();
 onClickOutside(optionsBtn, () => {
   showFloatingLayout.value = false;
 });
 </script>
 
 <template>
-  <BaseFloatingLayout
-    :show-layout="showFloatingLayout"
-    :offset="3"
-    placement="right"
-  >
+  <BaseFloatingLayout :show-layout="showFloatingLayout" placement="right">
     <button
       ref="optionsBtn"
-      class="block w-[19px] stroke-slate-700 px-2 group-hover:stroke-blue-600 group-focus:stroke-blue-600"
+      class="block w-[11px] rounded p-1 hover:bg-blue-100 hover:stroke-blue-600 focus-visible:bg-blue-100 focus-visible:stroke-blue-600"
+      :class="{
+        'stroke-slate-700': !showFloatingLayout,
+        'bg-blue-100 stroke-blue-600': showFloatingLayout,
+      }"
       type="button"
       @click="showFloatingLayout = !showFloatingLayout"
     >
@@ -32,6 +37,12 @@ onClickOutside(optionsBtn, () => {
       <div
         class="overflow-hidden rounded border-[1px] border-slate-300 bg-white text-xs shadow-[0_4px_14px_-3px_rgba(0,0,0,0.08)]"
       >
+        <ButtonOptionItem @click="jumpIntoView(nodeId)">
+          <template #icon>
+            <SharedRouteIcon />
+          </template>
+          <template #text>Locate Table</template>
+        </ButtonOptionItem>
         <ButtonOptionItem>
           <template #icon>
             <SharedCloneIcon />
