@@ -36,13 +36,13 @@ onClickOutside(optionsBtn, () => {
           <template #icon>
             <SharedCloneIcon />
           </template>
-          <template #text>Copy</template>
+          <template #text>Copy Table</template>
         </ButtonOptionItem>
         <ButtonOptionItemDanger>
           <template #icon>
             <SharedTrashIcon />
           </template>
-          <template #text>Delete</template>
+          <template #text>Delete Table</template>
         </ButtonOptionItemDanger>
       </div>
     </template>
