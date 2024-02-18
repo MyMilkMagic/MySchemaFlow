@@ -6,17 +6,17 @@ import type { Placement } from '@floating-ui/vue';
 type TProps = {
   showLayout: boolean;
   placement?: Placement;
-  offset?: number;
+  floatOffset?: number;
 };
 const props = withDefaults(defineProps<TProps>(), {
   placement: 'bottom',
-  offset: 0,
+  floatOffset: 0,
 });
 const referenceEl = ref<HTMLButtonElement>();
 const floatingEl = ref<HTMLDivElement>();
 const { floatingStyles } = useFloating(referenceEl, floatingEl, {
   placement: props.placement,
-  middleware: [shift(), flip(), offset(props.offset)],
+  middleware: [shift(), flip(), offset(props.floatOffset)],
   whileElementsMounted: autoUpdate,
 });
 const { activate, deactivate } = useFocusTrap(floatingEl, {

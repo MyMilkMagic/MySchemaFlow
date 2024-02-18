@@ -7,6 +7,7 @@ import SharedRouteIcon from '@components/Shared/Icons/SharedRouteIcon.vue';
 import ButtonOptionItem from '@components/Modules/Tables/Partials/ButtonOptionItem.vue';
 import ButtonOptionItemDanger from '@components/Modules/Tables/Partials/ButtonOptionItemDanger.vue';
 import { useTableJump } from '@composables/Canvas/useTableJump';
+import { useDeleteNodeActions } from '@composables/Nodes/useDeleteNodeActions';
 
 defineProps<{
   nodeId: string;
@@ -14,6 +15,7 @@ defineProps<{
 const showFloatingLayout = ref(false);
 const optionsBtn = ref<HTMLButtonElement>();
 const { jumpIntoView } = useTableJump();
+const { deleteNodeById } = useDeleteNodeActions();
 onClickOutside(optionsBtn, () => {
   showFloatingLayout.value = false;
 });
@@ -49,7 +51,7 @@ onClickOutside(optionsBtn, () => {
           </template>
           <template #text>Copy Table</template>
         </ButtonOptionItem>
-        <ButtonOptionItemDanger>
+        <ButtonOptionItemDanger @click="deleteNodeById(nodeId)">
           <template #icon>
             <SharedTrashIcon />
           </template>

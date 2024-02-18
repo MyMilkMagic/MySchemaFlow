@@ -14,7 +14,7 @@ const tables = computed(() => {
 <template>
   <div
     v-for="table in tables"
-    :key="table"
+    :key="table.name"
     class="mb-2 flex w-full items-center justify-between last-of-type:mb-0"
     type="button"
   >
