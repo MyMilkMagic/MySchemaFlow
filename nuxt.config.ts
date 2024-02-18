@@ -8,6 +8,8 @@ export default defineNuxtConfig({
     '@vue-flow/core/dist/theme-default.css',
     '@vue-flow/minimap/dist/style.css',
     '@vue-flow/controls/dist/style.css',
+    'overlayscrollbars/overlayscrollbars.css',
+    '~/assets/css/scrollbar.css',
   ],
   alias: {
     '@components': '../components',

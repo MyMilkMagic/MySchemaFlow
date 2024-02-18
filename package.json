@@ -23,6 +23,7 @@
     "focus-trap": "^7.5.4",
     "klona": "^2.0.6",
     "nuxt": "^3.10.2",
+    "overlayscrollbars": "^2.5.0",
     "pinia": "^2.1.7",
     "uuid": "^9.0.1",
     "vue": "^3.4.19",

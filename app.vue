@@ -3,6 +3,7 @@ import BaseSectionWrapper from '@components/Base/BaseSectionWrapper.vue';
 import CanvasBoard from '@components/Modules/CanvasBoard/CanvasBoard.vue';
 import Toolbar from '@components/Modules/Toolbar/Toolbar.vue';
 import Tables from '@components/Modules/Tables/Tables.vue';
+import BaseScrollbar from '@components/Base/BaseScrollbar.vue';
 import { vueFlowKey } from '@symbols/VueFlowSymbol';
 import { useVueFlow } from '@vue-flow/core';
 
@@ -31,14 +32,14 @@ onUnmounted(() => {
   <div class="font-dm">
     <Toolbar ref="toolbar" />
     <div ref="canvasWrapper" class="flex h-[calc(100vh-68.6px)]">
-      <div class="h-full w-full max-w-[230px] border-r-2">
+      <BaseScrollbar class="h-full w-full max-w-[230px] border-r-2">
         <BaseSectionWrapper>
           <template #label>Tables</template>
           <div class="mt-2">
             <Tables />
           </div>
         </BaseSectionWrapper>
-      </div>
+      </BaseScrollbar>
       <CanvasBoard class="h-full w-full" />
       <div class="h-full w-full max-w-[300px] border-l-2">
         <BaseSectionWrapper>
