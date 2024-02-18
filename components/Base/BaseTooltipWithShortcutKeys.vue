@@ -11,6 +11,9 @@ const { arrowStyles, onBeforeEnter, onEnter, onLeave } = useTooltip(
   floatingArrow,
   showTooltip,
 );
+defineExpose({
+  showTooltip,
+});
 </script>
 <template>
   <div

@@ -3,7 +3,6 @@ import ImportFile from '@components/Modules/Toolbar/Partials/ImportFile.vue';
 import ExportFile from '@components/Modules/Toolbar/Partials/ExportFile.vue';
 import CreateTable from '@components/Modules/Toolbar/Partials/CreateTable.vue';
 import RunAutoLayout from '@components/Modules/Toolbar/Partials/RunAutoLayout.vue';
-import LayoutChanger from '@components/Modules/Toolbar/Partials/LayoutChanger.vue';
 import SaveButton from '@components/Modules/Toolbar/Partials/SaveButton.vue';
 import Redo from '@components/Modules/Toolbar/Partials/Redo.vue';
 import Undo from '@components/Modules/Toolbar/Partials/Undo.vue';

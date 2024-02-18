@@ -21,15 +21,12 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@nuxtjs/eslint-module',
     '@nuxtjs/google-fonts',
     '@vue-macros/nuxt',
     '@nuxtjs/google-fonts',
+    '@vueuse/nuxt',
     'nuxt-icon',
   ],
-  eslint: {
-    lintOnStart: false,
-  },
   googleFonts: {
     families: {
       'DM Sans': true,
