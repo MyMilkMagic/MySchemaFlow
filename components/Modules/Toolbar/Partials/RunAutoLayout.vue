@@ -14,7 +14,7 @@ const { autoLayout } = useNodeAutoLayout();
     <BaseTooltipWithShortcutKeys>
       <button
         type="button"
-        class="flex h-[30px] w-[40px] items-center justify-center bg-slate-300 stroke-slate-600 p-2 outline-none hover:bg-slate-400/60"
+        class="flex h-[30px] w-[40px] items-center justify-center bg-slate-200/70 stroke-slate-600 p-2 outline-none hover:bg-slate-200/90"
         @click="autoLayout"
       >
         <SharedVerticalOrientationIcon

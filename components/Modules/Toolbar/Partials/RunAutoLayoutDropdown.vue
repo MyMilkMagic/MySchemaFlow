@@ -34,7 +34,7 @@ onClickOutside(autoLayoutDropdownBtn, () => {
       <button
         ref="autoLayoutDropdownBtn"
         type="button"
-        class="flex h-[30px] w-[30px] items-center justify-center bg-slate-200 stroke-slate-600 p-2.5 outline-none hover:bg-slate-300/80"
+        class="flex h-[30px] w-[30px] items-center justify-center bg-slate-300 stroke-slate-600 p-2.5 outline-none hover:bg-slate-400/60"
         @click="onClickToggleLayout"
       >
         <SharedChevronIcon />
