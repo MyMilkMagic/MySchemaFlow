@@ -8,6 +8,7 @@ import ButtonOptionItem from '@components/Modules/Tables/Partials/ButtonOptionIt
 import ButtonOptionItemDanger from '@components/Modules/Tables/Partials/ButtonOptionItemDanger.vue';
 import { useTableJump } from '@composables/Canvas/useTableJump';
 import { useDeleteNodeActions } from '@composables/Nodes/useDeleteNodeActions';
+import { useCreateNodeActions } from '@composables/Nodes/useCreateNodeActions';
 
 defineProps<{
   nodeId: string;
@@ -16,6 +17,7 @@ const showFloatingLayout = ref(false);
 const optionsBtn = ref<HTMLButtonElement>();
 const { jumpIntoView } = useTableJump();
 const { deleteNodeById } = useDeleteNodeActions();
+const { cloneNode } = useCreateNodeActions();
 onClickOutside(optionsBtn, () => {
   showFloatingLayout.value = false;
 });
@@ -45,7 +47,7 @@ onClickOutside(optionsBtn, () => {
           </template>
           <template #text>Locate Table</template>
         </ButtonOptionItem>
-        <ButtonOptionItem>
+        <ButtonOptionItem @click="cloneNode(nodeId)">
           <template #icon>
             <SharedCloneIcon />
           </template>

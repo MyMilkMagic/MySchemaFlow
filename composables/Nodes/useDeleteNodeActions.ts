@@ -6,9 +6,7 @@ export function useDeleteNodeActions() {
     const Node = vueFlow?.findNode(nodeId);
     if (!Node) return;
 
-    vueFlow?.setNodes(() => {
-      return vueFlow?.getNodes.value.filter((node) => node.id !== nodeId);
-    });
+    vueFlow?.removeNodes([Node]);
   };
 
   return {
