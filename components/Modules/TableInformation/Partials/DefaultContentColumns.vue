@@ -14,16 +14,16 @@ const canvasStore = useCanvasStore();
     <button
       v-for="column in canvasStore.activeNodeColumns"
       :key="column.name"
-      class="group mb-1 flex w-full rounded-md bg-slate-200 px-2 py-2 text-[.6rem] font-extrabold outline-none last-of-type:mb-0 hover:bg-blue-100"
+      class="group mb-1 flex w-full rounded-md bg-slate-200 px-2 py-2 text-[.6rem] font-extrabold outline-none last-of-type:mb-0 hover:bg-blue-100 focus-visible:bg-blue-100"
       type="button"
     >
       <span
-        class="w-8/12 truncate text-left text-slate-700 group-hover:text-blue-500"
+        class="w-8/12 truncate text-left text-slate-700 group-hover:text-blue-500 group-focus-visible:text-blue-500"
       >
         {{ column.name }}</span
       >
       <span
-        class="w-full truncate text-left text-slate-700 group-hover:text-blue-500"
+        class="w-full truncate text-left text-slate-700 group-hover:text-blue-500 group-focus-visible:text-blue-500"
       >
         {{ column.type }}</span
       >
