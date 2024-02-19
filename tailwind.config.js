@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        dm: 'DM Sans',
+        inter: 'Inter',
         'dm-mono': 'DM Mono',
       },
     },

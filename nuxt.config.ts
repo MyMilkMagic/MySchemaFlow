@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   ],
   googleFonts: {
     families: {
-      'DM Sans': true,
+      Inter: true,
       'DM Mono': true,
     },
   },

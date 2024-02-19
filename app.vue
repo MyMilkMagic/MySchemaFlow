@@ -30,7 +30,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="font-dm">
+  <div class="font-inter">
     <Toolbar ref="toolbar" />
     <div ref="canvasWrapper" class="flex h-[calc(100vh-68.6px)]">
       <BaseScrollbar class="h-full w-full max-w-[230px] border-r-2">
