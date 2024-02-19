@@ -38,7 +38,9 @@ onUnmounted(() => {
       ref="canvasWrapper"
       class="flex h-[calc(100vh-68.6px)] overflow-hidden"
     >
-      <BaseScrollbar class="h-full w-full max-w-[230px] border-r-2">
+      <BaseScrollbar
+        class="h-full w-full max-w-[230px] border-r-2 border-r-slate-300 pb-2"
+      >
         <BaseSectionWrapper>
           <template #label>Tables</template>
           <div class="my-2">
@@ -50,7 +52,9 @@ onUnmounted(() => {
         </BaseSectionWrapper>
       </BaseScrollbar>
       <CanvasBoard class="h-full w-full" />
-      <BaseScrollbar class="h-full w-full max-w-[300px] border-l-2">
+      <BaseScrollbar
+        class="h-full w-full max-w-[300px] border-l-2 border-r-slate-300 pb-2"
+      >
         <BaseSectionWrapper>
           <template #label>Table Information</template>
           <TableInformation />
