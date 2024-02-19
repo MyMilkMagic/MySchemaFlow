@@ -68,4 +68,13 @@ export const useCanvasStore = defineStore('canvas', {
   state: () => ({
     currentActiveNode: {} as TNode | Record<string, never>,
   }),
+  getters: {
+    hasActiveNode(state) {
+      return Object.keys(state.currentActiveNode).length !== 0;
+    },
+    activeNodeColumns(state) {
+      if (!this.hasActiveNode) return [];
+      return state.currentActiveNode.data.table.columns;
+    },
+  },
 });

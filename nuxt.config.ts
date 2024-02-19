@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@vue-flow/controls/dist/style.css',
     'overlayscrollbars/overlayscrollbars.css',
     '~/assets/css/scrollbar.css',
+    '~/assets/css/base.css',
   ],
   alias: {
     '@components': '../components',
@@ -31,8 +32,8 @@ export default defineNuxtConfig({
   ],
   googleFonts: {
     families: {
-      Inter: true,
-      'DM Mono': true,
+      Inter: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+      'DM Mono': [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
     },
   },
 });

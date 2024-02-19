@@ -5,6 +5,7 @@ import Toolbar from '@components/Modules/Toolbar/Toolbar.vue';
 import Tables from '@components/Modules/Tables/Tables.vue';
 import TableInformation from '@components/Modules/TableInformation/TableInformation.vue';
 import BaseScrollbar from '@components/Base/BaseScrollbar.vue';
+import { useNodeHighlight } from '@composables/Nodes/useNodeHighlight';
 import { vueFlowKey } from '@symbols/VueFlowSymbol';
 import { useVueFlow } from '@vue-flow/core';
 
@@ -19,6 +20,7 @@ const calculateHeight = () => {
   });
 };
 provide(vueFlowKey, useVueFlow());
+useNodeHighlight();
 onMounted(async () => {
   await nextTick();
   calculateHeight();
@@ -32,7 +34,10 @@ onUnmounted(() => {
 <template>
   <div class="font-inter">
     <Toolbar ref="toolbar" />
-    <div ref="canvasWrapper" class="flex h-[calc(100vh-68.6px)]">
+    <div
+      ref="canvasWrapper"
+      class="flex h-[calc(100vh-68.6px)] overflow-hidden"
+    >
       <BaseScrollbar class="h-full w-full max-w-[230px] border-r-2">
         <BaseSectionWrapper>
           <template #label>Tables</template>
@@ -45,12 +50,12 @@ onUnmounted(() => {
         </BaseSectionWrapper>
       </BaseScrollbar>
       <CanvasBoard class="h-full w-full" />
-      <div class="h-full w-full max-w-[300px] border-l-2">
+      <BaseScrollbar class="h-full w-full max-w-[300px] border-l-2">
         <BaseSectionWrapper>
           <template #label>Table Information</template>
           <TableInformation />
         </BaseSectionWrapper>
-      </div>
+      </BaseScrollbar>
     </div>
   </div>
 </template>
