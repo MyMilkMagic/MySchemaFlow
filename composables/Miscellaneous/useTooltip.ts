@@ -35,6 +35,7 @@ export function useTooltip(
       Object.assign(el.style, {
         opacity: 0,
         transform: `translateX(-10000%)`,
+        zIndex: -9999,
       });
     }
   };
@@ -50,6 +51,7 @@ export function useTooltip(
         // Bottom part only
         if (el instanceof HTMLElement) {
           Object.assign(el.style, {
+            zIndex: null,
             opacity: 1,
             transform: `translateX(${x.value}px) translateY(${TranslateY + Offset}px)`,
           });
