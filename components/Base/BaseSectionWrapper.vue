@@ -50,7 +50,7 @@ const onClickToggleWrapper = () => {
       </span>
     </button>
 
-    <div v-if="displayContent" class="overflow-hidden px-2">
+    <div v-if="displayContent" class="px-2">
       <slot></slot>
     </div>
   </div>
