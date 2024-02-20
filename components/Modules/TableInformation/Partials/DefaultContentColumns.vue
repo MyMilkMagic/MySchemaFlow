@@ -28,12 +28,16 @@ const onClickDeleteColumn = () => {
   canvasStore.deleteColumn(currentSelectedInd.value);
   currentSelectedInd.value = -1;
 };
+const onKeydownUpdateColumn = (e) => {
+  if (e.key.toLowerCase() !== 'enter') return;
+  canvasStore.selectedColumnInd = currentSelectedInd.value;
+};
 onClickOutside(wrapper, () => {
   currentSelectedInd.value = -1;
 });
 </script>
 <template>
-  <div ref="wrapper">
+  <div ref="wrapper" @keydown="onKeydownUpdateColumn">
     <p
       v-if="canvasStore.activeNodeColumns.length !== 0"
       class="mb-1 text-xs font-bold text-blue-950"
