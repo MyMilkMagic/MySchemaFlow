@@ -19,10 +19,12 @@ const onClickToggleActive = (ind: number) => {
   currentSelectedInd.value = ind;
 };
 const onClickCopyColumn = () => {
+  if (currentSelectedInd.value === -1) return;
   canvasStore.cloneColumn(currentSelectedInd.value);
   currentSelectedInd.value = canvasStore.activeNodeColumns.length - 1;
 };
 const onClickDeleteColumn = () => {
+  if (currentSelectedInd.value === -1) return;
   canvasStore.deleteColumn(currentSelectedInd.value);
   currentSelectedInd.value = -1;
 };
