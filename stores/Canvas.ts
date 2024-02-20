@@ -67,6 +67,7 @@ export type TEdge = Omit<GraphEdge, 'data'> & { data: TEdgeData };
 export const useCanvasStore = defineStore('canvas', {
   state: () => ({
     currentActiveNode: {} as TNode | Record<string, never>,
+    selectedColumnInd: -1,
   }),
   getters: {
     hasActiveNode(state) {
@@ -75,6 +76,9 @@ export const useCanvasStore = defineStore('canvas', {
     activeNodeColumns(state) {
       if (!this.hasActiveNode) return [];
       return state.currentActiveNode.data.table.columns;
+    },
+    hasSelectedColumn(state) {
+      return state.selectedColumnInd !== -1;
     },
   },
 });

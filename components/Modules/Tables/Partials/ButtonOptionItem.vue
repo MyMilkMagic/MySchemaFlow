@@ -1,6 +1,6 @@
 <template>
   <button
-    class="group flex w-full items-center py-2.5 pl-3 pr-10 font-dm outline-none hover:bg-blue-100 focus-visible:bg-blue-100"
+    class="font-dm group flex w-full items-center py-2.5 pl-3 pr-10 outline-none hover:bg-blue-100 focus-visible:bg-blue-100"
     type="button"
   >
     <span
