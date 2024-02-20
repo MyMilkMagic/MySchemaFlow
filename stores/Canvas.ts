@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import type { GraphNode, GraphEdge } from '@vue-flow/core';
+import { klona } from 'klona/full';
 
 export type TTableColumn = {
   id: number;
@@ -79,6 +80,19 @@ export const useCanvasStore = defineStore('canvas', {
     },
     hasSelectedColumn(state) {
       return state.selectedColumnInd !== -1;
+    },
+  },
+  actions: {
+    deleteColumn(ind: number) {
+      this.currentActiveNode.data.table.columns.splice(ind, 1);
+    },
+    cloneColumn(ind: number) {
+      const Columns = this.currentActiveNode.data.table.columns;
+      const SelectedColumn = Columns[ind];
+      const NewObject = klona(SelectedColumn);
+      NewObject.name = `${NewObject.name}_copy`;
+      NewObject.keyConstraint = '';
+      Columns.push(NewObject);
     },
   },
 });

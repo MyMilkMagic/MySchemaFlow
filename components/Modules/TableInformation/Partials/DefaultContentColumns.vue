@@ -18,6 +18,14 @@ const onClickToggleActive = (ind: number) => {
 
   currentSelectedInd.value = ind;
 };
+const onClickCopyColumn = () => {
+  canvasStore.cloneColumn(currentSelectedInd.value);
+  currentSelectedInd.value = canvasStore.activeNodeColumns.length - 1;
+};
+const onClickDeleteColumn = () => {
+  canvasStore.deleteColumn(currentSelectedInd.value);
+  currentSelectedInd.value = -1;
+};
 onClickOutside(wrapper, () => {
   currentSelectedInd.value = -1;
 });
@@ -85,7 +93,7 @@ onClickOutside(wrapper, () => {
             <BaseTooltipLabel>Add Column</BaseTooltipLabel>
           </template>
         </BaseTooltipWithShortcutKeys>
-        <BaseTooltipWithShortcutKeys class="mr-1">
+        <BaseTooltipWithShortcutKeys class="mr-1" @click="onClickCopyColumn">
           <BaseSectionActionButtonIcon :disabled="currentSelectedInd === -1">
             <SharedCloneIcon />
           </BaseSectionActionButtonIcon>
@@ -93,7 +101,7 @@ onClickOutside(wrapper, () => {
             <BaseTooltipLabel>Clone Column</BaseTooltipLabel>
           </template>
         </BaseTooltipWithShortcutKeys>
-        <BaseTooltipWithShortcutKeys class="mr-1">
+        <BaseTooltipWithShortcutKeys class="mr-1" @click="onClickDeleteColumn">
           <BaseSectionActionButtonIcon
             :disabled="currentSelectedInd === -1"
             color-scheme="danger"
