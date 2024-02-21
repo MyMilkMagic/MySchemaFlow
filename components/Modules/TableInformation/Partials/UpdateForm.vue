@@ -22,6 +22,23 @@ const columnUnique = ref(
 const columnPrimaryKey = ref(
   canvasStore.currentSelectedColumnData.keyConstraint === 'PK',
 );
+
+watch(columnPrimaryKey, (isPrimaryKey) => {
+  if (isPrimaryKey) {
+    columnUnique.value = false;
+    columnAllowNull.value = false;
+  }
+});
+watch(columnAllowNull, (columnAllowNull) => {
+  if (columnAllowNull) {
+    columnPrimaryKey.value = false;
+  }
+});
+watch(columnUnique, (columnUnique) => {
+  if (columnUnique) {
+    columnPrimaryKey.value = false;
+  }
+});
 </script>
 <template>
   <div class="mt-2">

@@ -7,11 +7,14 @@ const { modelValue } = defineModels<{
 </script>
 
 <template>
-  <BaseSectionCheckbox
-    id="formAllowNullCheckbox"
-    v-model="modelValue"
-    name="formAllowNullCheckbox"
-  >
-    Null
-  </BaseSectionCheckbox>
+  <div>
+    <BaseSectionCheckbox
+      id="formAllowNullCheckbox"
+      v-model="modelValue"
+      name="formAllowNullCheckbox"
+      value="formAllowNullCheckbox"
+    >
+      Null
+    </BaseSectionCheckbox>
+  </div>
 </template>

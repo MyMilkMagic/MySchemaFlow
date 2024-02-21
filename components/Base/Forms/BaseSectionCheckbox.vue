@@ -2,18 +2,20 @@
 import SharedCheckboxIcon from '@components/Shared/Icons/SharedCheckboxIcon.vue';
 import anime from 'animejs/lib/anime';
 
-defineProps<{
+const props = defineProps<{
   name: string;
   id: string;
+  value: string;
 }>();
 const { modelValue } = defineModels<{
   modelValue: boolean | Array<string>;
 }>();
-const isChecked = ref(false);
-const isFocused = ref(false);
+const isChecked = ref(modelValue.value);
+const isFocused = ref(modelValue.value);
 
 const toggleCheckState = (event: Event) => {
-  isChecked.value = (<HTMLInputElement>event.target).checked;
+  const Input = event.target as HTMLInputElement;
+  isChecked.value = Input.checked;
 };
 const onEnter = (el: Element, done: () => void) => {
   const Paths = el.querySelectorAll('path');
@@ -35,6 +37,14 @@ const onLeave = (el: Element, done: () => void) => {
     complete: done,
   });
 };
+
+watch(modelValue, (modelValue) => {
+  if (Array.isArray(modelValue)) {
+    isChecked.value = modelValue.includes(props.value);
+    return;
+  }
+  isChecked.value = modelValue;
+});
 </script>
 
 <template>
@@ -43,6 +53,7 @@ const onLeave = (el: Element, done: () => void) => {
       :id="id"
       v-model="modelValue"
       :name="name"
+      :value="value"
       type="checkbox"
       class="inline appearance-none"
       @change="toggleCheckState"

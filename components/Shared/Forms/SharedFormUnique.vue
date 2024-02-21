@@ -11,6 +11,7 @@ const { modelValue } = defineModels<{
     id="formAllowUniqueCheckbox"
     v-model="modelValue"
     name="formAllowUniqueCheckbox"
+    value="formAllowUniqueCheckbox"
   >
     Unique
   </BaseSectionCheckbox>

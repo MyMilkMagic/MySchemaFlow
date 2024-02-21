@@ -11,6 +11,7 @@ const { modelValue } = defineModels<{
     id="formAllowPrimaryCheckbox"
     v-model="modelValue"
     name="formAllowPrimaryCheckbox"
+    value="formAllowPrimaryCheckbox"
   >
     Primary Key
   </BaseSectionCheckbox>
