@@ -81,6 +81,12 @@ export const useCanvasStore = defineStore('canvas', {
     hasSelectedColumn(state) {
       return state.selectedColumnInd !== -1;
     },
+    currentSelectedColumnData(state): Record<string, never> | TTableColumn {
+      if (!this.hasActiveNode) return {};
+      return state.currentActiveNode.data.table.columns[
+        state.selectedColumnInd
+      ];
+    },
   },
   actions: {
     deleteColumn(ind: number) {

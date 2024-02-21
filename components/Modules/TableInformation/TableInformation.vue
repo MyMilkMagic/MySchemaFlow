@@ -3,8 +3,14 @@ import SharedNoSelectedTable from '@components/Shared/EmptyStates/SharedNoSelect
 import DefaultContent from '@components/Modules/TableInformation/Partials/DefaultContent.vue';
 import UpdateForm from '@components/Modules/TableInformation/Partials/UpdateForm.vue';
 import { useCanvasStore } from '@stores/Canvas';
+import { vueFlowKey } from '@symbols/VueFlowSymbol';
 
 const canvasStore = useCanvasStore();
+const vueFlow = inject(vueFlowKey);
+
+vueFlow?.onPaneClick(() => {
+  canvasStore.selectedColumnInd = -1;
+});
 </script>
 <template>
   <div>

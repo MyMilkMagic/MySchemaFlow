@@ -28,7 +28,7 @@ const onClickDeleteColumn = () => {
   canvasStore.deleteColumn(currentSelectedInd.value);
   currentSelectedInd.value = -1;
 };
-const onKeydownUpdateColumn = (e) => {
+const onKeydownUpdateColumn = (e: KeyboardEvent) => {
   if (e.key.toLowerCase() !== 'enter') return;
   canvasStore.selectedColumnInd = currentSelectedInd.value;
 };
@@ -54,7 +54,7 @@ onClickOutside(wrapper, () => {
           currentSelectedInd !== ind,
       }"
       type="button"
-      @click="onClickToggleActive(ind)"
+      @click="onClickToggleActive(+ind)"
       @dblclick="canvasStore.selectedColumnInd = ind"
     >
       <span
