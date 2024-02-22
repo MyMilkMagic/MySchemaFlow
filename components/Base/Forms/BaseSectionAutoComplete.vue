@@ -94,6 +94,7 @@ const onEnterChooseDataType = (e: KeyboardEvent) => {
 };
 const onBlurHideLayout = async () => {
   await nextTick();
+  if (!floatingEl.value) return;
   const Scrollbar = floatingEl.value.$el;
   // Need to add delay, otherwise, current document.activeElement cannot be detected
   clearTimeout(layoutDelayId);
