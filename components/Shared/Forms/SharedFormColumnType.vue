@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BaseSectionAutoComplete from '@components/Base/Forms/BaseSectionAutoComplete.vue';
 import { sqlDataTypes } from '@records/SQLTypes';
-import BaseSectionTextInput from '@components/Base/Forms/BaseSectionTextInput.vue';
 
 const { modelValue } = defineModels<{
   modelValue: string;

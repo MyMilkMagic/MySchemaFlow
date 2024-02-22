@@ -7,6 +7,9 @@ import BaseTooltipLabel from '@components/Base/BaseTooltipLabel.vue';
 import BaseSectionActionButtonIcon from '@components/Base/Forms/BaseSectionActionButtonIcon.vue';
 import BaseTooltipWithShortcutKeys from '@components/Base/BaseTooltipWithShortcutKeys.vue';
 
+const emits = defineEmits<{
+  (e: 'addColumn'): void;
+}>();
 const canvasStore = useCanvasStore();
 const wrapper = ref<HTMLDivElement>();
 const currentSelectedInd = ref(-1);
@@ -91,7 +94,7 @@ onClickOutside(wrapper, () => {
 
     <div class="mt-2">
       <div class="flex">
-        <BaseTooltipWithShortcutKeys class="mr-1">
+        <BaseTooltipWithShortcutKeys class="mr-1" @click="emits('addColumn')">
           <BaseSectionActionButtonIcon>
             <SharedAddIcon />
           </BaseSectionActionButtonIcon>

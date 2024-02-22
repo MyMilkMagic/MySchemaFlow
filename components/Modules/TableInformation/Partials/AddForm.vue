@@ -1,26 +1,21 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import SharedSectionBackButton from '@components/Shared/Buttons/SharedSectionBackButton.vue';
+import ShareFormPrimaryKey from '@components/Shared/Forms/ShareFormPrimaryKey.vue';
+import BaseSectionActionButton from '@components/Base/Forms/BaseSectionActionButton.vue';
+import SharedAddIcon from '@components/Shared/Icons/SharedAddIcon.vue';
 import SharedFormColumnName from '@components/Shared/Forms/SharedFormColumnName.vue';
 import SharedFormColumnType from '@components/Shared/Forms/SharedFormColumnType.vue';
 import SharedFormAllowNull from '@components/Shared/Forms/SharedFormAllowNull.vue';
 import SharedFormUnique from '@components/Shared/Forms/SharedFormUnique.vue';
-import ShareFormPrimaryKey from '@components/Shared/Forms/ShareFormPrimaryKey.vue';
-import BaseSectionActionButton from '@components/Base/Forms/BaseSectionActionButton.vue';
-import SharedEditIcon from '@components/Shared/Icons/SharedEditIcon.vue';
-import { useCanvasStore } from '@stores/Canvas';
 
-const canvasStore = useCanvasStore();
-const columnName = ref(canvasStore.currentSelectedColumnData?.name ?? '');
-const columnType = ref(canvasStore.currentSelectedColumnData?.type ?? '');
-const columnAllowNull = ref(
-  canvasStore.currentSelectedColumnData?.isNull ?? false,
-);
-const columnUnique = ref(
-  canvasStore.currentSelectedColumnData?.isUnique ?? false,
-);
-const columnPrimaryKey = ref(
-  canvasStore.currentSelectedColumnData.keyConstraint === 'PK',
-);
+const emits = defineEmits<{
+  (e: 'goBack'): void;
+}>();
+const columnName = ref('');
+const columnType = ref('');
+const columnAllowNull = ref(false);
+const columnUnique = ref(false);
+const columnPrimaryKey = ref(false);
 
 watch(columnPrimaryKey, (isPrimaryKey) => {
   if (isPrimaryKey) {
@@ -41,7 +36,8 @@ watch(columnUnique, (columnUnique) => {
 </script>
 <template>
   <div class="mt-2">
-    <SharedSectionBackButton @click="canvasStore.selectedColumnInd = -1" />
+    <SharedSectionBackButton @click="emits('goBack')" />
+
     <div class="mt-2">
       <SharedFormColumnName v-model="columnName" class="mb-1" />
       <SharedFormColumnType v-model="columnType" />
@@ -50,9 +46,9 @@ watch(columnUnique, (columnUnique) => {
       <ShareFormPrimaryKey v-model="columnPrimaryKey" class="mt-2" />
       <BaseSectionActionButton class="mt-2 w-full">
         <template #icon>
-          <SharedEditIcon />
+          <SharedAddIcon />
         </template>
-        Update Column
+        Add Column
       </BaseSectionActionButton>
     </div>
   </div>
