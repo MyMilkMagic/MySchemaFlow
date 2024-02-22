@@ -87,10 +87,14 @@ const onKeydown = async (e: KeyboardEvent) => {
     updateScrollTop();
   }
 };
-const onEnterChooseDataType = (e: KeyboardEvent) => {
-  if (e.key.toLowerCase() !== 'enter') return;
+
+const onClickChooseDataType = () => {
   modelValue.value = props.list[currentIndex.value].name;
   showFloatingLayout.value = false;
+};
+const onEnterChooseDataType = (e: KeyboardEvent) => {
+  if (e.key.toLowerCase() !== 'enter') return;
+  onClickChooseDataType();
 };
 const onBlurHideLayout = async () => {
   await nextTick();
@@ -152,6 +156,7 @@ onClickOutside(inputWrapper, () => {
           @focus="currentIndex = ind"
           @keydown="onEnterChooseDataType"
           @blur="onBlurHideLayout"
+          @click="onClickChooseDataType"
         >
           <span
             class="w-6/12 truncate px-2 py-1.5 text-left text-xs font-semibold group-hover:text-blue-500 group-focus-visible:text-blue-500"
