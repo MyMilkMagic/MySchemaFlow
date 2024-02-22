@@ -2,21 +2,24 @@
 import { ClickScrollPlugin, OverlayScrollbars } from 'overlayscrollbars';
 
 const scrollbarEl = ref<HTMLDivElement>();
-let instance: OverlayScrollbars | null = null;
+const instance = ref<OverlayScrollbars | null>(null);
 
+defineExpose({
+  instance,
+});
 onMounted(async () => {
   await nextTick();
   const Wrapper = toValue(scrollbarEl);
   if (!Wrapper) return;
   OverlayScrollbars.plugin(ClickScrollPlugin);
-  instance = OverlayScrollbars(Wrapper, {
+  instance.value = OverlayScrollbars(Wrapper, {
     scrollbars: { clickScroll: true },
   });
 });
 
 onUnmounted(() => {
   if (instance === null) return;
-  // instance.destroy();
+  instance.value?.destroy();
 });
 </script>
 <template>

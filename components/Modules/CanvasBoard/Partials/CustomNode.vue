@@ -4,8 +4,6 @@ import type { TNodeData } from '@stores/Canvas';
 const props = defineProps<{
   data: TNodeData;
 }>();
-
-console.log(props.data);
 </script>
 <template>
   <div
