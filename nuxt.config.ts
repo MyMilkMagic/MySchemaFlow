@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     '@composables': '../composables',
     '@symbols': '../symbols',
     '@records': '../records',
+    '@lang': '../lang',
   },
   devtools: { enabled: true },
   modules: [
