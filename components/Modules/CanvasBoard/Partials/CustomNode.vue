@@ -7,10 +7,10 @@ const props = defineProps<{
 </script>
 <template>
   <div
-    class="w-[400px] overflow-hidden rounded-xl border-2 border-blue-950 bg-white font-dm-mono"
+    class="w-[350px] overflow-hidden rounded-xl border-2 border-slate-500 bg-white font-dm-mono"
   >
     <p
-      class="truncate border-b-2 border-b-blue-950 px-2 py-2 text-center font-black text-blue-950"
+      class="truncate border-b-2 border-b-slate-500 px-2 py-2 text-center font-black text-blue-950"
     >
       {{ data.table.name }}
     </p>
@@ -42,7 +42,7 @@ const props = defineProps<{
         >{{ column.name }}</span
       >
       <span
-        class="block w-full flex-grow truncate text-center text-sm text-blue-500 group-hover:text-white"
+        class="block w-full flex-grow truncate text-left text-sm text-blue-500 group-hover:text-white"
         >{{ column.type }}</span
       >
     </button>
