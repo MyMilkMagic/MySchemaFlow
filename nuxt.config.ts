@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     '@vue-flow/controls/dist/style.css',
     'overlayscrollbars/overlayscrollbars.css',
     '~/assets/css/scrollbar.css',
+    '~/assets/css/vueflow.css',
     '~/assets/css/base.css',
   ],
   alias: {

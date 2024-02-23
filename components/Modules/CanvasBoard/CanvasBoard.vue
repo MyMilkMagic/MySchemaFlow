@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import CustomNode from '@components/Modules/CanvasBoard/Partials/CustomNode.vue';
+import Controls from '@components/Modules/CanvasBoard/Partials/Controls.vue';
 import { useNodeAutoLayout } from '~/composables/Nodes/useNodeAutoLayout';
 import { TestNodes, TestEdges } from '@dummy/CanvasDummy';
 import { VueFlow } from '@vue-flow/core';
 import { useVueFlow } from '@vue-flow/core';
 import { MiniMap } from '@vue-flow/minimap';
-import { Controls } from '@vue-flow/controls';
 import { Background } from '@vue-flow/background';
 
 const nodes = ref(TestNodes);
