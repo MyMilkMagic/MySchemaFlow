@@ -56,9 +56,10 @@ export function isUniqueColumn(
 }
 
 export function isValidDataType(dataType: string): boolean {
+  const DataType = dataType.split('(')[0];
   // Assuming sqlDataTypes is an array of valid data types
   return sqlDataTypes.some(
-    (type) => type.name.toLowerCase() === dataType.toLowerCase(),
+    (type) => type.name.toLowerCase() === DataType.toLowerCase(),
   );
 }
 
