@@ -6,4 +6,9 @@ export const useSettingsStore = defineStore('settings', {
     zoomLevel: 1,
     enableTableJumpAnimation: true,
   }),
+  getters: {
+    getZoomLevelInPercentage(state) {
+      return state.zoomLevel * 100;
+    },
+  },
 });

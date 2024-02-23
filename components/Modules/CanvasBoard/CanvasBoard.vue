@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import CustomNode from '@components/Modules/CanvasBoard/Partials/CustomNode.vue';
 import Controls from '@components/Modules/CanvasBoard/Partials/Controls.vue';
+import Progress from '@components/Modules/CanvasBoard/Partials/Progress.vue';
 import { useNodeAutoLayout } from '~/composables/Nodes/useNodeAutoLayout';
 import { TestNodes, TestEdges } from '@dummy/CanvasDummy';
 import { VueFlow } from '@vue-flow/core';
@@ -40,6 +41,7 @@ onPaneReady(() => {
       >
         <MiniMap pannable zoomable />
         <Controls />
+        <Progress />
         <Background
           class="h-full"
           pattern-color="#171A22"
