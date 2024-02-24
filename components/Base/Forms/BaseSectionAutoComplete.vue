@@ -36,8 +36,10 @@ const { floatingStyles } = useFloating(referenceEl, floatingEl, {
 const updateScrollTop = async (shouldFocus: boolean = false) => {
   await nextTick();
   const CurrentElement = buttonItems.value[currentIndex.value];
-  const Scrollbar = floatingEl.value?.instance.elements();
-  Scrollbar.scrollEventElement.scrollTop = CurrentElement.offsetTop;
+  const Scrollbar = floatingEl.value?.instance?.elements?.();
+  if (!Scrollbar) return;
+  const ScrollElement = Scrollbar.scrollEventElement as HTMLElement;
+  ScrollElement.scrollTop = CurrentElement.offsetTop;
   await nextTick();
   if (shouldFocus) {
     CurrentElement.focus();

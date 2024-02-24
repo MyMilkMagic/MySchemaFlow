@@ -111,3 +111,28 @@ export const getActiveEdges = (
     (edge) => edge.source === NodeId || edge.target === NodeId,
   );
 };
+
+/**
+ * Get all related and unrelated nodes based on the given active node
+ */
+export const getConnectedNodes = (
+  currentNode: TNode | Record<string, never>,
+  edges: Array<TEdge>,
+) => {
+  const CurrentNodeId = currentNode.id;
+  const Related = klona(edges)
+    .filter((edge) => {
+      return edge.target === CurrentNodeId || edge.source === CurrentNodeId;
+    })
+    .map((edge) => Object.assign({}, edge));
+  const Unrelated = klona(edges)
+    .filter((edge) => {
+      return edge.target !== CurrentNodeId && edge.source !== CurrentNodeId;
+    })
+    .map((edge) => Object.assign({}, edge));
+
+  return {
+    related: Related,
+    unrelated: Unrelated,
+  };
+};
