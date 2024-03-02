@@ -1,6 +1,7 @@
 import { useCanvasStore } from '@stores/Canvas';
 import { getConnectedNodes } from '@utilities/CanvasHelper';
 import { useVueFlow } from '@vue-flow/core';
+import type { TEdge } from '@stores/Canvas';
 
 export function useNodeStateHandler() {
   const canvasStore = useCanvasStore();
@@ -105,9 +106,57 @@ export function useNodeStateHandler() {
       isFaded: false,
     };
   };
+  const activatePairNode = (edge: TEdge) => {
+    setEdges((edges) => {
+      return edges.map((currentEdge) => {
+        if (edge.id === currentEdge.id) {
+          currentEdge.class = 'active';
+          currentEdge.animated = true;
+          currentEdge.zIndex = 98;
+          edge.data.referenced.isHandleActive = true;
+          edge.data.referencing.isHandleActive = true;
+          return edge;
+        }
+
+        currentEdge.class = 'faded';
+        currentEdge.animated = false;
+
+        return currentEdge;
+      });
+    });
+    setNodes((nodes) => {
+      return nodes.map((node) => {
+        node.zIndex = 99;
+        const MatchPairNode =
+          edge.sourceNode.id === node.id || edge.targetNode.id === node.id;
+
+        if (MatchPairNode) {
+          if (canvasStore.currentActiveNode.id === node.id) {
+            node.data.states = {
+              isActive: true,
+              isFaded: false,
+            };
+          } else {
+            node.data.states = {
+              isActive: false,
+              isFaded: false,
+            };
+          }
+        } else {
+          node.data.states = {
+            isActive: false,
+            isFaded: true,
+          };
+        }
+
+        return node;
+      });
+    });
+  };
 
   return {
     resetState,
     activateState,
+    activatePairNode,
   };
 }

@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import { useCanvasStore } from '@stores/Canvas';
 import type { TNodeData } from '@stores/Canvas';
 
 const props = defineProps<{
+  id: string;
   data: TNodeData;
 }>();
-
+const canvasStore = useCanvasStore();
 const isFaded = computed(
   () => !props.data.states.isActive && props.data.states.isFaded,
 );
@@ -14,6 +16,12 @@ const isActive = computed(
 const isDefault = computed(
   () => !props.data.states.isActive && !props.data.states.isFaded,
 );
+const onClickChooseColumnIndex = async (index: number) => {
+  if (!canvasStore.hasActiveNode) return;
+  canvasStore.selectedColumnInd = -1;
+  await nextTick();
+  canvasStore.selectedColumnInd = index;
+};
 </script>
 <template>
   <div
@@ -37,30 +45,42 @@ const isDefault = computed(
       {{ data.table.name }}
     </p>
     <button
-      v-for="column in data.table.columns"
+      v-for="(column, ind) in data.table.columns"
       :key="column.name"
       type="button"
-      class="group flex w-full items-center px-2 py-1 font-black"
+      class="group flex w-full items-center px-2 py-1 font-black outline-none focus-visible:bg-blue-500"
       :class="{
         'hover:bg-blue-500': isActive,
+        'bg-blue-500':
+          canvasStore.selectedColumnInd === ind &&
+          props.id === canvasStore.currentActiveNode.id,
       }"
+      @dblclick="onClickChooseColumnIndex(ind)"
     >
       <span class="block flex-shrink-0 text-xl">
         <Icon
           v-if="column.keyConstraint === 'PK'"
           name="solar:key-bold-duotone"
+          class="group-focus-visible:text-white"
           :class="{
             'text-rose-500': isDefault,
             'text-rose-500 group-hover:text-white': isActive,
+            'text-white':
+              canvasStore.selectedColumnInd === ind &&
+              props.id === canvasStore.currentActiveNode.id,
             'text-slate-300': isFaded,
           }"
         />
         <Icon
           v-if="column.keyConstraint === 'FK'"
           name="solar:key-bold-duotone"
+          class="group-focus-visible:text-white"
           :class="{
             'text-amber-500': isDefault,
             'text-amber-500 group-hover:text-white': isActive,
+            'text-white':
+              canvasStore.selectedColumnInd === ind &&
+              props.id === canvasStore.currentActiveNode.id,
             'text-slate-300': isFaded,
           }"
         />
@@ -71,20 +91,26 @@ const isDefault = computed(
         />
       </span>
       <span
-        class="ml-1 mr-2 block w-full flex-grow truncate text-left text-sm"
+        class="ml-1 mr-2 block w-full flex-grow truncate text-left text-sm group-focus-visible:text-white"
         :class="{
           'text-blue-950': isDefault,
           'group-hover:text-white': isActive,
           'text-slate-300': isFaded,
+          'text-white':
+            canvasStore.selectedColumnInd === ind &&
+            props.id === canvasStore.currentActiveNode.id,
         }"
         >{{ column.name }}</span
       >
       <span
-        class="block w-full flex-grow truncate text-left text-sm"
+        class="block w-full flex-grow truncate text-left text-sm group-focus-visible:text-white"
         :class="{
           'text-amber-500': isDefault,
-          'group-hover:text-white': isActive,
+          'text-amber-500 group-hover:text-white': isActive,
           'text-slate-300': isFaded,
+          'text-white':
+            canvasStore.selectedColumnInd === ind &&
+            props.id === canvasStore.currentActiveNode.id,
         }"
         >{{ column.type }}</span
       >

@@ -48,8 +48,8 @@ onPaneReady(() => {
           :gap="20"
           variant="dots"
         />
-        <template #node-custom="{ data }">
-          <CustomNode :data="data" />
+        <template #node-custom="{ data, id }">
+          <CustomNode :id="id" :data="data" />
         </template>
       </VueFlow>
     </ClientOnly>

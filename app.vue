@@ -6,6 +6,7 @@ import Tables from '@components/Modules/Tables/Tables.vue';
 import TableInformation from '@components/Modules/TableInformation/TableInformation.vue';
 import BaseScrollbar from '@components/Base/BaseScrollbar.vue';
 import { useNodeHighlight } from '@composables/Nodes/useNodeHighlight';
+import { useEdgeHighlight } from '@composables/Edges/useEdgeHighlight';
 import { vueFlowKey } from '@symbols/VueFlowSymbol';
 import { useVueFlow } from '@vue-flow/core';
 
@@ -21,6 +22,7 @@ const calculateHeight = () => {
 };
 provide(vueFlowKey, useVueFlow());
 useNodeHighlight();
+useEdgeHighlight();
 onMounted(async () => {
   await nextTick();
   calculateHeight();
