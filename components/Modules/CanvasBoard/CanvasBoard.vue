@@ -2,7 +2,8 @@
 import CustomNode from '@components/Modules/CanvasBoard/Partials/CustomNode.vue';
 import Controls from '@components/Modules/CanvasBoard/Partials/Controls.vue';
 import Progress from '@components/Modules/CanvasBoard/Partials/Progress.vue';
-import { useNodeAutoLayout } from '~/composables/Nodes/useNodeAutoLayout';
+import { useColumnKeySorter } from '@composables/Canvas/useColumnKeySorter';
+import { useNodeAutoLayout } from '@composables/Nodes/useNodeAutoLayout';
 import { TestNodes, TestEdges } from '@dummy/CanvasDummy';
 import { VueFlow } from '@vue-flow/core';
 import { useVueFlow } from '@vue-flow/core';
@@ -13,8 +14,10 @@ const nodes = ref(TestNodes);
 const edges = ref(TestEdges);
 const { autoLayout } = useNodeAutoLayout();
 const { onPaneReady } = useVueFlow();
+const { sortPKFirst } = useColumnKeySorter();
 
 onPaneReady(() => {
+  sortPKFirst();
   autoLayout();
 });
 </script>

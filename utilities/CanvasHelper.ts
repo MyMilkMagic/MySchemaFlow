@@ -1,7 +1,7 @@
 import dagre from 'dagre';
 import { klona } from 'klona/full';
 import { Position } from '@vue-flow/core';
-import type { TEdge, TNode } from '@stores/Canvas';
+import type { TEdge, TNode, TTableColumn } from '@stores/Canvas';
 
 /**
  * Calculate node positions based on the node direction and layout them properly
@@ -135,4 +135,25 @@ export const getConnectedNodes = (
     related: Related,
     unrelated: Unrelated,
   };
+};
+
+/**
+ * Sorts table columns from pk to fk to non-key constraint
+ */
+export const sortConstraintKeys = (arr: Array<TTableColumn>) => {
+  return arr.slice().sort((a, b) => {
+    if (a.keyConstraint === 'PK' && b.keyConstraint !== 'PK') {
+      return -1;
+    }
+    if (a.keyConstraint !== 'PK' && b.keyConstraint === 'PK') {
+      return 1;
+    }
+    if (a.keyConstraint === 'FK' && b.keyConstraint !== 'FK') {
+      return -1;
+    }
+    if (a.keyConstraint !== 'FK' && b.keyConstraint === 'FK') {
+      return 1;
+    }
+    return 0;
+  });
 };
