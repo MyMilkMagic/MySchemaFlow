@@ -24,7 +24,6 @@ onPaneReady(() => {
   autoLayout();
 });
 
-// TODO: Highlight the element
 onEdgeMouseEnter(({ edge }) => highlightNodeColumnRelation(edge));
 onEdgeMouseLeave(unhighlightColumnRelationship);
 </script>
