@@ -4,6 +4,7 @@ import Controls from '@components/Modules/CanvasBoard/Partials/Controls.vue';
 import Progress from '@components/Modules/CanvasBoard/Partials/Progress.vue';
 import { useColumnKeySorter } from '@composables/Canvas/useColumnKeySorter';
 import { useNodeAutoLayout } from '@composables/Nodes/useNodeAutoLayout';
+import { useEdgeRelationshipHighlighter } from '@composables/Edges/useEdgeRelationshipHighlighter';
 import { TestNodes, TestEdges } from '@dummy/CanvasDummy';
 import { VueFlow } from '@vue-flow/core';
 import { useVueFlow } from '@vue-flow/core';
@@ -13,13 +14,19 @@ import { Background } from '@vue-flow/background';
 const nodes = ref(TestNodes);
 const edges = ref(TestEdges);
 const { autoLayout } = useNodeAutoLayout();
-const { onPaneReady } = useVueFlow();
+const { onPaneReady, onEdgeMouseEnter, onEdgeMouseLeave } = useVueFlow();
 const { sortPKFirst } = useColumnKeySorter();
+const { highlightNodeColumnRelation, unhighlightColumnRelationship } =
+  useEdgeRelationshipHighlighter();
 
 onPaneReady(() => {
   sortPKFirst();
   autoLayout();
 });
+
+// TODO: Highlight the element
+onEdgeMouseEnter(({ edge }) => highlightNodeColumnRelation(edge));
+onEdgeMouseLeave(unhighlightColumnRelationship);
 </script>
 
 <template>

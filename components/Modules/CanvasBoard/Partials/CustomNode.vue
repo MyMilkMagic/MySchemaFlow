@@ -16,6 +16,17 @@ const isActive = computed(
 const isDefault = computed(
   () => !props.data.states.isActive && !props.data.states.isFaded,
 );
+const getColumns = computed(() => {
+  return props.data.table.columns.map((column, ind) => ({
+    name: column.name,
+    keyConstraint: column.keyConstraint,
+    type: column.type,
+    shouldHighlight:
+      (canvasStore.selectedColumnInd === ind &&
+        props.id === canvasStore.currentActiveNode.id) ||
+      column.shouldHighlight,
+  }));
+});
 const onClickChooseColumnIndex = async (index: number) => {
   if (!canvasStore.hasActiveNode) return;
   canvasStore.selectedColumnInd = -1;
@@ -45,15 +56,13 @@ const onClickChooseColumnIndex = async (index: number) => {
       {{ data.table.name }}
     </p>
     <button
-      v-for="(column, ind) in data.table.columns"
+      v-for="(column, ind) in getColumns"
       :key="column.name"
       type="button"
       class="group flex w-full items-center px-2 py-1 font-black outline-none focus-visible:bg-blue-500"
       :class="{
         'hover:bg-blue-500': isActive,
-        'bg-blue-500':
-          canvasStore.selectedColumnInd === ind &&
-          props.id === canvasStore.currentActiveNode.id,
+        'bg-blue-500': column.shouldHighlight,
       }"
       @dblclick="onClickChooseColumnIndex(ind)"
     >
@@ -65,9 +74,7 @@ const onClickChooseColumnIndex = async (index: number) => {
           :class="{
             'text-rose-500': isDefault,
             'text-rose-500 group-hover:text-white': isActive,
-            'text-white':
-              canvasStore.selectedColumnInd === ind &&
-              props.id === canvasStore.currentActiveNode.id,
+            'text-white': column.shouldHighlight,
             'text-slate-300': isFaded,
           }"
         />
@@ -78,9 +85,7 @@ const onClickChooseColumnIndex = async (index: number) => {
           :class="{
             'text-amber-500': isDefault,
             'text-amber-500 group-hover:text-white': isActive,
-            'text-white':
-              canvasStore.selectedColumnInd === ind &&
-              props.id === canvasStore.currentActiveNode.id,
+            'text-white': column.shouldHighlight,
             'text-slate-300': isFaded,
           }"
         />
@@ -96,9 +101,7 @@ const onClickChooseColumnIndex = async (index: number) => {
           'text-blue-950': isDefault,
           'group-hover:text-white': isActive,
           'text-slate-300': isFaded,
-          'text-white':
-            canvasStore.selectedColumnInd === ind &&
-            props.id === canvasStore.currentActiveNode.id,
+          'text-white': column.shouldHighlight,
         }"
         >{{ column.name }}</span
       >
@@ -108,9 +111,7 @@ const onClickChooseColumnIndex = async (index: number) => {
           'text-amber-500': isDefault,
           'text-amber-500 group-hover:text-white': isActive,
           'text-slate-300': isFaded,
-          'text-white':
-            canvasStore.selectedColumnInd === ind &&
-            props.id === canvasStore.currentActiveNode.id,
+          'text-white': column.shouldHighlight,
         }"
         >{{ column.type }}</span
       >
