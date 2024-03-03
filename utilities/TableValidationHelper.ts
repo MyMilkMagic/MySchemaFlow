@@ -6,6 +6,7 @@ import type { TTableColumn, TNode } from '@stores/Canvas';
 export function validateColumns(
   data: Omit<TTableColumn, 'id' | 'shouldHighlight' | 'keyConstraint'> & {
     isPrimaryKey: boolean;
+    originalColumnName?: string;
   },
   currentNode: TNode | Record<string, never>,
 ): Array<string> {
@@ -14,11 +15,20 @@ export function validateColumns(
   // Validate column name
   if (isEmpty(data.name)) {
     errors.push(errorsMsg.validation.empty('Column name'));
-  } else if (
-    !('originalColumnName' in data) &&
-    !isUniqueColumn(data.name, currentNode)
-  ) {
-    errors.push(errorsMsg.validation.unique('This column'));
+  } else {
+    if (
+      data.originalColumnName &&
+      !isUniqueColumn(data.name, data.originalColumnName, currentNode)
+    ) {
+      errors.push(errorsMsg.validation.unique('This column'));
+    }
+
+    if (
+      !data.originalColumnName &&
+      !isUniqueColumn(data.name, '', currentNode)
+    ) {
+      errors.push(errorsMsg.validation.unique('This column'));
+    }
   }
 
   // Validate column type
@@ -44,25 +54,34 @@ export function validateColumns(
   return errors;
 }
 
-// Helper functions for better readability and usability
+/**
+ * Check if column is unique, meaning, it does not exist yet.
+ */
 export function isUniqueColumn(
   columnName: string,
+  columnOriginalName: string,
   currentNode: Record<string, never> | TNode,
 ): boolean {
   if (isEmpty(currentNode)) return false;
-  return currentNode.data.table.columns.every(
-    (column) => column.name !== columnName,
-  );
+
+  return currentNode.data.table.columns
+    .filter((column) => column.name !== columnOriginalName)
+    .every((column) => column.name !== columnName);
 }
 
+/**
+ * Check if data has a valid data type column
+ */
 export function isValidDataType(dataType: string): boolean {
   const DataType = dataType.split('(')[0];
-  // Assuming sqlDataTypes is an array of valid data types
   return sqlDataTypes.some(
     (type) => type.name.toLowerCase() === DataType.toLowerCase(),
   );
 }
 
+/**
+ * Check if column has a primary key
+ */
 export function columnsHasPrimaryKey(
   currentNode: TNode | Record<string, never>,
 ): boolean {

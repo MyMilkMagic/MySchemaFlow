@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 type TProps = {
-  colorScheme: 'success' | 'danger';
+  colorScheme?: 'success' | 'danger';
 };
 withDefaults(defineProps<TProps>(), {
   colorScheme: 'success',

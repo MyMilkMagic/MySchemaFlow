@@ -157,3 +157,16 @@ export const sortConstraintKeys = (arr: Array<TTableColumn>) => {
     return 0;
   });
 };
+
+/**
+ * Returns a filtered list of edges based on the given active node
+ */
+export const getNodeRelationship = (
+  currentActiveNode: TNode | Record<string, never>,
+  edges: TEdge[],
+) => {
+  const NodeId = currentActiveNode.id;
+  return klona(edges).filter(
+    (edge) => edge.source === NodeId || edge.target === NodeId,
+  );
+};

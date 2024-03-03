@@ -11,6 +11,7 @@ import SharedFormAllowNull from '@components/Shared/Forms/SharedFormAllowNull.vu
 import SharedFormUnique from '@components/Shared/Forms/SharedFormUnique.vue';
 import { useCanvasStore } from '@stores/Canvas';
 import { validateColumns } from '@utilities/TableValidationHelper';
+import { formatColumnDataType } from '@utilities/ColumnTypeHelper';
 
 const emits = defineEmits<{
   (e: 'goBack'): void;
@@ -27,7 +28,7 @@ const columnPrimaryKey = ref(false);
 const onClickCreateColumn = () => {
   const ColumnData = {
     name: columnName.value,
-    type: columnType.value,
+    type: formatColumnDataType(columnType.value),
     isNull: columnAllowNull.value,
     isUnique: columnUnique.value,
     isPrimaryKey: columnPrimaryKey.value,

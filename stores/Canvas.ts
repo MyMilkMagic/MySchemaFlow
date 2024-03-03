@@ -99,6 +99,19 @@ export const useCanvasStore = defineStore('canvas', {
       Columns.push(AddedObject);
       this.currentActiveNode.data.table.columns = sortConstraintKeys(Columns);
     },
+    updateColumnInActiveNode(
+      data: Omit<TTableColumn, 'id' | 'keyConstraint' | 'shouldHighlight'>,
+      index: number,
+    ) {
+      const Columns = this.currentActiveNode.data.table.columns;
+      Columns[index] = Object.assign(Columns[index], klona(data));
+
+      this.currentActiveNode.data.table.columns = sortConstraintKeys(Columns);
+
+      return this.currentActiveNode.data.table.columns.findIndex(
+        (column) => column.name === data.name,
+      );
+    },
     deleteColumn(ind: number) {
       this.currentActiveNode.data.table.columns.splice(ind, 1);
     },
