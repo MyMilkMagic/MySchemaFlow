@@ -1,9 +1,9 @@
+import { sortConstraintKeys } from '@utilities/CanvasHelper';
 import { defineStore } from 'pinia';
-import type { GraphNode, GraphEdge } from '@vue-flow/core';
 import { klona } from 'klona/full';
+import type { GraphNode, GraphEdge } from '@vue-flow/core';
 
 export type TTableColumn = {
-  id: number;
   name: string;
   type: string;
   isNull: boolean;
@@ -89,6 +89,16 @@ export const useCanvasStore = defineStore('canvas', {
     },
   },
   actions: {
+    addColumnInActiveNode(data: TTableColumn) {
+      const Columns = this.currentActiveNode.data.table.columns;
+
+      const AddedObject = Object.assign(
+        { shouldHighlight: false },
+        klona(data),
+      );
+      Columns.push(AddedObject);
+      this.currentActiveNode.data.table.columns = sortConstraintKeys(Columns);
+    },
     deleteColumn(ind: number) {
       this.currentActiveNode.data.table.columns.splice(ind, 1);
     },

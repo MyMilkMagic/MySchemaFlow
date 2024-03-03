@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BaseSectionAlertList from '@components/Base/Alerts/BaseSectionAlertList.vue';
+import BaseSectionAlert from '@components/Base/Alerts/BaseSectionAlert.vue';
 import BaseSectionActionButton from '@components/Base/Forms/BaseSectionActionButton.vue';
 import SharedSectionBackButton from '@components/Shared/Buttons/SharedSectionBackButton.vue';
 import ShareFormPrimaryKey from '@components/Shared/Forms/ShareFormPrimaryKey.vue';
@@ -16,6 +17,7 @@ const emits = defineEmits<{
 }>();
 const canvasStore = useCanvasStore();
 const errors = ref<Array<string>>([]);
+const showSuccessAlert = ref(false);
 const columnName = ref('');
 const columnType = ref('');
 const columnAllowNull = ref(false);
@@ -31,7 +33,26 @@ const onClickCreateColumn = () => {
     isPrimaryKey: columnPrimaryKey.value,
   };
   errors.value = validateColumns(ColumnData, canvasStore.currentActiveNode);
-  // Then create new one
+
+  if (errors.value.length !== 0) return;
+
+  canvasStore.addColumnInActiveNode({
+    name: ColumnData.name,
+    type: ColumnData.type,
+    isNull: ColumnData.isNull,
+    isUnique: ColumnData.isUnique,
+    keyConstraint: columnPrimaryKey.value ? 'PK' : '',
+    shouldHighlight: false,
+  });
+
+  // Clear states
+  columnName.value = '';
+  columnType.value = '';
+  columnAllowNull.value = false;
+  columnUnique.value = false;
+  columnPrimaryKey.value = false;
+
+  showSuccessAlert.value = true;
 };
 watch(columnPrimaryKey, (isPrimaryKey) => {
   if (isPrimaryKey) {
@@ -61,6 +82,9 @@ watch(columnUnique, (columnUnique) => {
         color-scheme="danger"
         class="mb-2 mt-4"
       />
+      <BaseSectionAlert v-if="showSuccessAlert" class="mb-2 mt-4">
+        You have successfully created a new column!
+      </BaseSectionAlert>
 
       <SharedFormColumnName v-model="columnName" class="mb-1" />
       <SharedFormColumnType v-model="columnType" />
