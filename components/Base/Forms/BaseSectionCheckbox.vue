@@ -11,7 +11,7 @@ const { modelValue } = defineModels<{
   modelValue: boolean | Array<string>;
 }>();
 const isChecked = ref(modelValue.value);
-const isFocused = ref(modelValue.value);
+const isFocused = ref(false);
 
 const toggleCheckState = (event: Event) => {
   const Input = event.target as HTMLInputElement;
