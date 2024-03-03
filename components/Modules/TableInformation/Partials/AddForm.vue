@@ -34,6 +34,7 @@ const onClickCreateColumn = () => {
     isPrimaryKey: columnPrimaryKey.value,
   };
   errors.value = validateColumns(ColumnData, canvasStore.currentActiveNode);
+  showSuccessAlert.value = false;
 
   if (errors.value.length !== 0) return;
 
