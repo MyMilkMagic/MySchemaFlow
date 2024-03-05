@@ -17,7 +17,7 @@ export function useTooltip(
   const onBeforeEnter = (el: Element) => {
     if (el instanceof HTMLElement) {
       Object.assign(el.style, {
-        opacity: 1,
+        opacity: 0,
         zIndex: -9999,
       });
     }
@@ -50,11 +50,18 @@ export function useTooltip(
         placement: initialPlacement,
       });
       placement = Placement;
-      translateY = placement === 'bottom' ? y + ArrowWidth : y - ArrowWidth;
+      translateY =
+        placement === 'bottom'
+          ? y + ArrowWidth
+          : placement === 'top'
+            ? y - ArrowWidth
+            : y;
       const Transform =
         placement === 'bottom'
           ? `translateX(${x}px) translateY(${translateY + Offset}px)`
-          : `translateX(${x}px) translateY(${translateY - Offset * 2}px)`;
+          : placement === 'left'
+            ? `translateX(${x - ArrowWidth}px) translateY(${translateY - Offset}px)`
+            : `translateX(${x}px) translateY(${translateY - Offset * 2}px)`;
 
       // Check arrow placement
       if (placement === 'bottom') {
@@ -82,7 +89,6 @@ export function useTooltip(
 
       Object.assign(floatingEl.value.style, {
         zIndex: null,
-        opacity: 1,
         top: 0,
         left: 0,
         transform: Transform,
