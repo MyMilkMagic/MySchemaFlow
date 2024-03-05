@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import BaseTooltipWithShortcutKeys from '@components/Base/BaseTooltipWithShortcutKeys.vue';
+import BaseTooltipLabel from '@components/Base/BaseTooltipLabel.vue';
 import BaseScrollbar from '@components/Base/BaseScrollbar.vue';
 import { useFloating, autoUpdate, shift, flip, size } from '@floating-ui/vue';
 import { findIndexOfSelectedType } from '@utilities/ColumnTypeHelper';
@@ -169,34 +171,44 @@ watch(modelValue, (oldValue, newValue) => {
         :style="floatingStyles"
         class="max-h-[150px] overflow-hidden rounded border-2 border-slate-200 bg-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]"
       >
-        <button
+        <BaseTooltipWithShortcutKeys
           v-for="(item, ind) in getList"
           :key="item.name"
-          ref="buttonItems"
-          type="button"
-          class="group flex w-full outline-none hover:bg-blue-100 focus-visible:bg-blue-100"
-          :class="{
-            'bg-blue-100': currentIndex === ind,
-          }"
-          @click="onClickChooseDataType"
+          placement="left"
+          class="w-full"
         >
-          <span
-            class="w-6/12 truncate px-2 py-1.5 text-left text-xs font-semibold group-hover:text-blue-500 group-focus-visible:text-blue-500"
+          <button
+            ref="buttonItems"
+            type="button"
+            class="group flex w-full outline-none hover:bg-blue-100 focus-visible:bg-blue-100"
             :class="{
-              'text-slate-900': currentIndex !== ind,
-              'text-blue-500': currentIndex === ind,
+              'bg-blue-100': currentIndex === ind,
             }"
-            >{{ item.name }}</span
+            @click="onClickChooseDataType"
           >
-          <span
-            class="w-6/12 truncate px-2 py-1.5 text-left text-xs font-semibold group-hover:text-blue-950 group-focus-visible:text-blue-950"
-            :class="{
-              'text-slate-500': currentIndex !== ind,
-              'text-blue-950': currentIndex === ind,
-            }"
-            >{{ item.description }}</span
-          >
-        </button>
+            <span
+              class="w-6/12 truncate px-2 py-1.5 text-left text-xs font-semibold group-hover:text-blue-500 group-focus-visible:text-blue-500"
+              :class="{
+                'text-slate-900': currentIndex !== ind,
+                'text-blue-500': currentIndex === ind,
+              }"
+              >{{ item.name }}</span
+            >
+            <span
+              class="w-6/12 truncate px-2 py-1.5 text-left text-xs font-semibold group-hover:text-blue-950 group-focus-visible:text-blue-950"
+              :class="{
+                'text-slate-500': currentIndex !== ind,
+                'text-blue-950': currentIndex === ind,
+              }"
+              >{{ item.description }}</span
+            >
+          </button>
+          <template #tooltip>
+            <BaseTooltipLabel>
+              {{ item.description }}
+            </BaseTooltipLabel>
+          </template>
+        </BaseTooltipWithShortcutKeys>
       </BaseScrollbar>
     </div>
   </div>
