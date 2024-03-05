@@ -11,14 +11,18 @@ const props = defineProps<{
 const { modelValue } = defineModels<{
   modelValue: string;
 }>();
+const oldValue = ref(modelValue.value);
 const referenceEl = ref<HTMLInputElement>();
 const floatingEl = ref<InstanceType<typeof BaseScrollbar>>();
 const buttonItems = ref();
 const showFloatingLayout = ref(false);
 const currentIndex = ref(findIndexOfSelectedType(props.list, modelValue.value));
 const inputWrapper = ref<HTMLDivElement>();
-let layoutDelayId = 0;
-
+const getList = computed(() => {
+  return props.list.filter((list) => {
+    return list.name.toLowerCase().includes(modelValue.value.toLowerCase());
+  });
+});
 const { floatingStyles } = useFloating(referenceEl, floatingEl, {
   middleware: [
     shift(),
@@ -33,93 +37,111 @@ const { floatingStyles } = useFloating(referenceEl, floatingEl, {
   ],
   whileElementsMounted: autoUpdate,
 });
-const updateScrollTop = async (shouldFocus: boolean = false) => {
+const updateScrollTop = async () => {
   await nextTick();
   const CurrentElement = buttonItems.value[currentIndex.value];
   const Scrollbar = floatingEl.value?.instance?.elements?.();
   if (!Scrollbar) return;
-  const ScrollElement = Scrollbar.scrollEventElement as HTMLElement;
-  ScrollElement.scrollTop = CurrentElement.offsetTop;
-  await nextTick();
-  if (shouldFocus) {
-    CurrentElement.focus();
-  }
+  Scrollbar.viewport.scrollTo({ top: CurrentElement.offsetTop });
 };
 const onFocusShowLayout = async () => {
   showFloatingLayout.value = true;
+  currentIndex.value = findIndexOfSelectedType(getList.value, modelValue.value);
   await nextTick();
   if (currentIndex.value !== -1) {
     updateScrollTop();
   }
+
+  if (currentIndex.value === -1 && modelValue.value.trim() !== '') {
+    showFloatingLayout.value = false;
+  }
 };
-const onKeydown = async (e: KeyboardEvent) => {
-  if (!showFloatingLayout.value) return;
+const onKeydownSearchItem = async (e: KeyboardEvent) => {
+  const Key = e.key.toLowerCase();
+
+  // If user hits 'tab', do not allow it
+  if (Key === 'tab') {
+    e.preventDefault();
+    return;
+  }
 
   // When navigating down using keyboard
-  if (e.key.toLowerCase() === 'arrowdown') {
+  if (Key === 'arrowdown') {
+    if (getList.value.length === 0) return;
+
     e.preventDefault();
 
-    if (currentIndex.value === props.list.length - 1) {
+    if (currentIndex.value === getList.value.length - 1) {
       currentIndex.value = 0;
     } else {
-      currentIndex.value += 1;
+      currentIndex.value++;
     }
 
-    updateScrollTop(true);
+    updateScrollTop();
+    return;
   }
 
   // When navigating up using keyboard
-  if (e.key.toLowerCase() == 'arrowup') {
+  if (Key == 'arrowup') {
+    if (getList.value.length === 0) return;
     e.preventDefault();
 
     if (currentIndex.value <= 0) {
-      currentIndex.value = props.list.length - 1;
+      currentIndex.value = getList.value.length - 1;
     } else {
       currentIndex.value--;
     }
 
-    updateScrollTop(true);
+    updateScrollTop();
+    return;
   }
 
-  // Unfocused input element when 'tab' key is pressed
-  if (e.key.toLowerCase() === 'tab') {
-    currentIndex.value = currentIndex.value === -1 ? 0 : currentIndex.value;
-    const InputEl = e.target as HTMLElement;
-    InputEl.blur();
-    updateScrollTop();
+  // Hide the floating layout when user hit 'enter' key
+  if (Key === 'enter') {
+    if (currentIndex.value === -1) return;
+    modelValue.value = getList.value[currentIndex.value].name;
+    oldValue.value = modelValue.value;
+    showFloatingLayout.value = false;
+    return;
+  }
+
+  // If user starts to delete a char, reset the button active state
+  if (Key === 'backspace') {
+    showFloatingLayout.value = false;
+    currentIndex.value = -1;
+    await nextTick();
+    if (getList.value.length === 0) return;
+    setTimeout(() => (showFloatingLayout.value = true), 50);
+    return;
   }
 };
+const onKeyupSearchItem = async (e: KeyboardEvent) => {
+  const Key = e.key.toLowerCase();
 
+  if (getList.value.length === 0) {
+    showFloatingLayout.value = false;
+  }
+
+  if (
+    Key !== 'enter' &&
+    getList.value.length !== 0 &&
+    oldValue.value !== modelValue.value
+  ) {
+    showFloatingLayout.value = true;
+  }
+};
 const onClickChooseDataType = () => {
-  modelValue.value = props.list[currentIndex.value].name;
+  modelValue.value = getList.value[currentIndex.value].name;
   showFloatingLayout.value = false;
 };
-const onEnterChooseDataType = (e: KeyboardEvent) => {
-  if (e.key.toLowerCase() !== 'enter') return;
-  onClickChooseDataType();
-};
-const onBlurHideLayout = async () => {
-  await nextTick();
-  if (!floatingEl.value) return;
-  const Scrollbar = floatingEl.value.$el;
-  // Need to add delay, otherwise, current document.activeElement cannot be detected
-  clearTimeout(layoutDelayId);
-  layoutDelayId = window.setTimeout(() => {
-    if (!Scrollbar.contains(document.activeElement)) {
-      showFloatingLayout.value = false;
-    }
-  }, 100);
-};
-
-onMounted(() => {
-  window.addEventListener('keydown', onKeydown);
-});
-onUnmounted(() => {
-  window.removeEventListener('keydown', onKeydown);
-});
 onClickOutside(inputWrapper, () => {
   showFloatingLayout.value = false;
-  currentIndex.value = findIndexOfSelectedType(props.list, modelValue.value);
+  currentIndex.value = findIndexOfSelectedType(getList.value, modelValue.value);
+});
+watch(modelValue, (oldValue, newValue) => {
+  if (oldValue !== newValue) {
+    currentIndex.value = -1;
+  }
 });
 </script>
 
@@ -137,17 +159,18 @@ onClickOutside(inputWrapper, () => {
         type="text"
         :placeholder="placeholder"
         @focus="onFocusShowLayout"
-        @keydown="onKeydown"
+        @keydown="onKeydownSearchItem"
+        @keyup="onKeyupSearchItem"
       />
 
       <BaseScrollbar
         v-if="showFloatingLayout"
         ref="floatingEl"
         :style="floatingStyles"
-        class="h-[150px] overflow-hidden rounded border-2 border-slate-200 bg-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]"
+        class="max-h-[150px] overflow-hidden rounded border-2 border-slate-200 bg-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]"
       >
         <button
-          v-for="(item, ind) in list"
+          v-for="(item, ind) in getList"
           :key="item.name"
           ref="buttonItems"
           type="button"
@@ -155,9 +178,6 @@ onClickOutside(inputWrapper, () => {
           :class="{
             'bg-blue-100': currentIndex === ind,
           }"
-          @focus="currentIndex = ind"
-          @keydown="onEnterChooseDataType"
-          @blur="onBlurHideLayout"
           @click="onClickChooseDataType"
         >
           <span
