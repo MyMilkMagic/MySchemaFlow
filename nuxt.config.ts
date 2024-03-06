@@ -30,7 +30,6 @@ export default defineNuxtConfig({
     '@vue-macros/nuxt',
     '@nuxtjs/google-fonts',
     '@vueuse/nuxt',
-    'nuxt-icon',
   ],
   googleFonts: {
     families: {

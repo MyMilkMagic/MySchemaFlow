@@ -43,10 +43,9 @@ const onClickChooseColumnIndex = async (index: number) => {
     }"
     @dblclick="onClickChooseColumnIndex(ind)"
   >
-    <span class="block flex-shrink-0 text-xl">
-      <Icon
+    <span class="block flex-shrink-0 text-sm">
+      <span
         v-if="column.keyConstraint === 'PK'"
-        name="solar:key-bold-duotone"
         class="group-focus-visible:text-white"
         :class="{
           'text-rose-500': isDefault,
@@ -54,10 +53,11 @@ const onClickChooseColumnIndex = async (index: number) => {
           'text-white': column.shouldHighlight,
           'text-slate-300': isFaded,
         }"
-      />
-      <Icon
+      >
+        PK
+      </span>
+      <span
         v-if="column.keyConstraint === 'FK'"
-        name="solar:key-bold-duotone"
         class="group-focus-visible:text-white"
         :class="{
           'text-amber-500': isDefault,
@@ -65,12 +65,12 @@ const onClickChooseColumnIndex = async (index: number) => {
           'text-white': column.shouldHighlight,
           'text-slate-300': isFaded,
         }"
-      />
-      <Icon
-        v-if="column.keyConstraint === ''"
-        name="solar:key-bold-duotone"
-        class="text-transparent"
-      />
+      >
+        FK
+      </span>
+      <span v-if="column.keyConstraint === ''" class="text-transparent"
+        >NT</span
+      >
     </span>
     <span
       class="ml-1 mr-2 block w-full flex-grow truncate text-left text-sm group-focus-visible:text-white"
@@ -85,8 +85,8 @@ const onClickChooseColumnIndex = async (index: number) => {
     <span
       class="block w-full flex-grow truncate text-left text-sm group-focus-visible:text-white"
       :class="{
-        'text-amber-500': isDefault,
-        'text-amber-500 group-hover:text-white': isActive,
+        'text-blue-600': isDefault,
+        'text-blue-600 group-hover:text-white': isActive,
         'text-slate-300': isFaded,
         'text-white': column.shouldHighlight,
       }"
