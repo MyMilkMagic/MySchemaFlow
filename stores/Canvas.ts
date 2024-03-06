@@ -67,12 +67,16 @@ export type TEdge = Omit<GraphEdge, 'data'> & { data: TEdgeData };
 
 export const useCanvasStore = defineStore('canvas', {
   state: () => ({
-    currentActiveNode: {} as TNode | Record<string, never>,
+    currentActiveNode: {} as TNode | Record<string, never>, // To track what table node is currently being highlighted
+    currentActiveEdge: {} as TEdge | Record<string, never>, // To track what edge is currently being edited
     selectedColumnInd: -1,
   }),
   getters: {
     hasActiveNode(state) {
       return Object.keys(state.currentActiveNode).length !== 0;
+    },
+    hasRelationships(state) {
+      return Object.keys(state.currentActiveEdge).length !== 0;
     },
     activeNodeColumns(state) {
       if (!this.hasActiveNode) return [];

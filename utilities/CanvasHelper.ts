@@ -170,3 +170,54 @@ export const getNodeRelationship = (
     (edge) => edge.source === NodeId || edge.target === NodeId,
   );
 };
+
+/**
+ * Find node by id
+ */
+export const findNode = (id: string, nodes: Array<TNode>) => {
+  return nodes.find((node) => node.id === id);
+};
+
+/**
+ * Get all the relationship based on active node
+ */
+export const getActiveNodeRelations = (
+  currentActiveEdges: Array<TEdge>,
+  nodes: Array<TNode>,
+  activeNodeId: string,
+) => {
+  return klona(currentActiveEdges)
+    .map((edge) => {
+      const SourceNode = findNode(edge.source, nodes);
+      const TargetNode = findNode(edge.target, nodes);
+      const IsParent = edge.target === activeNodeId;
+
+      if (!TargetNode || !SourceNode) {
+        return {
+          id: '',
+          table: '',
+          column: '',
+          relation: '',
+          isCurrentNodeParent: false,
+        };
+      }
+
+      const Table = IsParent
+        ? SourceNode.data.table.name
+        : TargetNode.data.table.name;
+      const Column = IsParent
+        ? edge.data.referenced.column
+        : edge.data.referencing.column;
+
+      return {
+        id: edge.id,
+        table: Table,
+        column: Column,
+        relation: IsParent ? 'Parent' : 'Child',
+        isCurrentNodeParent: IsParent,
+      };
+    })
+    .sort((edge) => {
+      return edge.isCurrentNodeParent ? 1 : -1;
+    });
+};

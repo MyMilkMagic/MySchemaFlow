@@ -16,7 +16,7 @@ vueFlow?.onPaneClick(() => {
 });
 </script>
 <template>
-  <div>
+  <div class="mb-4 px-2">
     <template v-if="canvasStore.hasActiveNode">
       <DefaultContent
         v-if="canvasStore.selectedColumnInd === -1 && !showCreateForm"

@@ -4,6 +4,7 @@ import CanvasBoard from '@components/Modules/CanvasBoard/CanvasBoard.vue';
 import Toolbar from '@components/Modules/Toolbar/Toolbar.vue';
 import Tables from '@components/Modules/Tables/Tables.vue';
 import TableInformation from '@components/Modules/TableInformation/TableInformation.vue';
+import TableRelationships from '@components/Modules/TableRelationships/TableRelationships.vue';
 import BaseScrollbar from '@components/Base/BaseScrollbar.vue';
 import { useNodeHighlight } from '@composables/Nodes/useNodeHighlight';
 import { useEdgeHighlight } from '@composables/Edges/useEdgeHighlight';
@@ -60,6 +61,10 @@ onUnmounted(() => {
         <BaseSectionWrapper>
           <template #label>Table Information</template>
           <TableInformation />
+        </BaseSectionWrapper>
+        <BaseSectionWrapper>
+          <template #label>Relationships</template>
+          <TableRelationships />
         </BaseSectionWrapper>
       </BaseScrollbar>
     </div>

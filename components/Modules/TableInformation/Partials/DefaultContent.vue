@@ -8,7 +8,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-  <div class="px-2">
+  <div>
     <DefaultContentTableName />
     <DefaultContentColumns class="mt-4" @add-column="emits('addColumn')" />
   </div>
