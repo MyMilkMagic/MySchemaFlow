@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import BaseSectionDropdown from '@components/Base/Forms/BaseSectionDropdown.vue';
-import { useCanvasStore } from '@stores/Canvas';
 import { findNodeByTableName } from '@utilities/CanvasHelper';
 import { vueFlowKey } from '@symbols/VueFlowSymbol';
-import { computed, inject, watch } from 'vue';
 
 export type TProps = {
   referencedTable: string;
@@ -15,7 +13,6 @@ const props = withDefaults(defineProps<TProps>(), {
 const { modelValue } = defineModels<{
   modelValue: string;
 }>();
-const canvasStore = useCanvasStore();
 const VueFlow = inject(vueFlowKey);
 const getColumns = computed(() => {
   if (props.referencedTable.trim() === '' || !VueFlow) return [];
@@ -30,14 +27,6 @@ const getColumns = computed(() => {
     name: column.name,
   }));
 });
-
-// Everytime active node changes, reset model value
-watch(
-  () => [canvasStore.currentActiveNode, props.referencedTable],
-  () => {
-    modelValue.value = '';
-  },
-);
 </script>
 
 <template>

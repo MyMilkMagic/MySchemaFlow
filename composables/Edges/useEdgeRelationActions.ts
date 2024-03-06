@@ -29,11 +29,12 @@ export type TUpdateColumn = {
 
 export function useEdgeRelationActions() {
   const canvasStore = useCanvasStore();
-  const { calculateActiveEdgesPosition } = useEdgePositionCalculator();
+  const { calculateActiveEdgesPosition, calculateAllEdgesPosition } =
+    useEdgePositionCalculator();
   const { activateState } = useNodeStateHandler();
   const VueFlow = inject(vueFlowKey);
 
-  const addRelation = (relationData: TRelationFormData) => {
+  const addRelation = async (relationData: TRelationFormData) => {
     if (!VueFlow) return;
 
     const ReferencedNode = findNodeByTableName(
@@ -67,7 +68,7 @@ export function useEdgeRelationActions() {
       },
     };
     VueFlow.addEdges([EdgeObj]);
-    calculateActiveEdgesPosition();
+    await calculateActiveEdgesPosition();
     activateState();
   };
 
@@ -96,39 +97,48 @@ export function useEdgeRelationActions() {
 
   const updateRelation = async (relationData: TRelationFormData) => {
     if (!VueFlow) return;
-    const ReferencingNode = canvasStore.currentActiveEdge.targetNode;
     const ReferencedNode = findNodeByTableName(
       relationData.referencedTable,
       VueFlow.getNodes.value,
     );
 
     if (!ReferencedNode) return;
-
-    const Edge = VueFlow.findEdge(canvasStore.currentActiveEdge.id);
-    if (!Edge) return;
-    Edge.target = ReferencingNode.id;
-    Edge.source = ReferencedNode.id;
-    Edge.data = {
-      referenced: {
-        column: relationData.referencedColumn,
+    const EdgeObj = {
+      id: uuidv4(),
+      source: ReferencedNode.id,
+      target: canvasStore.currentActiveEdge.targetNode.id,
+      style: {
+        strokeWidth: 2.5,
       },
-      referencing: {
-        column: relationData.referencingColumn,
+      data: {
+        referenced: {
+          isHandleActive: false,
+          column: relationData.referencedColumn,
+        },
+        referencing: {
+          isHandleActive: false,
+          column: relationData.referencingColumn,
+        },
+        constraint: {
+          onDelete: relationData.constraint.onDelete,
+          onUpdate: relationData.constraint.onUpdate,
+        },
+        cardinality: relationData.cardinality,
       },
-      constraint: {
-        onDelete: relationData.constraint.onDelete,
-        onUpdate: relationData.constraint.onUpdate,
-      },
-      cardinality: relationData.cardinality,
     };
+    deleteRelation();
+    VueFlow.addEdges([EdgeObj]);
+
+    const Edges = VueFlow.getEdges.value;
+    const LastInsertedEdge = Edges[Edges.length - 1]; // Retrieve the previously added edge
 
     // The Current active node will now be the referencing node
-    canvasStore.currentActiveNode = Edge.sourceNode;
+    canvasStore.currentActiveNode = LastInsertedEdge.targetNode;
+    canvasStore.currentActiveEdge = LastInsertedEdge;
+
     await nextTick();
     activateState();
-    calculateActiveEdgesPosition();
-    await nextTick();
-    canvasStore.currentActiveEdge = Edge;
+    await calculateAllEdgesPosition();
   };
 
   const updateColumnRelation = (data: TUpdateColumn) => {

@@ -61,6 +61,7 @@ export type TEdgeData = {
       | 'SET DEFAULT'
       | string;
   };
+  cardinality: 'one-to-many' | 'many-to-one' | 'one-to-one' | 'many-to-many';
 };
 export type TNode = Omit<GraphNode, 'data'> & { data: TNodeData };
 export type TEdge = Omit<GraphEdge, 'data'> & { data: TEdgeData };
