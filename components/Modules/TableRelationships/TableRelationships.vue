@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SharedNoSelectedTable from '@components/Shared/EmptyStates/SharedNoSelectedTable.vue';
 import DefaultContent from '@components/Modules/TableRelationships/Partials/DefaultContent.vue';
+import AddForm from '@components/Modules/TableRelationships/Partials/AddForm.vue';
 import { useCanvasStore } from '@stores/Canvas';
 import { vueFlowKey } from '@symbols/VueFlowSymbol';
 import { ref, inject } from 'vue';
@@ -31,6 +32,7 @@ VueFlow?.onNodeClick(({ node }) => {
         @add-form="displayAddForm = true"
         @edit-form="displayEditForm = true"
       />
+      <AddForm v-if="displayAddForm && !displayEditForm" />
     </template>
     <SharedNoSelectedTable v-else />
   </div>

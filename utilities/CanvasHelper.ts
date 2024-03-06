@@ -179,6 +179,13 @@ export const findNode = (id: string, nodes: Array<TNode>) => {
 };
 
 /**
+ * Find node by table name
+ */
+export const findNodeByTableName = (name: string, nodes: Array<TNode>) => {
+  return nodes.find((node) => node.data.table.name === name);
+};
+
+/**
  * Get all the relationship based on active node
  */
 export const getActiveNodeRelations = (
