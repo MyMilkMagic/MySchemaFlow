@@ -5,6 +5,7 @@ import Progress from '@components/Modules/CanvasBoard/Partials/Progress.vue';
 import { useColumnKeySorter } from '@composables/Canvas/useColumnKeySorter';
 import { useNodeAutoLayout } from '@composables/Nodes/useNodeAutoLayout';
 import { useEdgeRelationshipHighlighter } from '@composables/Edges/useEdgeRelationshipHighlighter';
+import { useUpdateEdgePosition } from '@composables/Edges/useUpdateEdgePosition';
 import { TestNodes, TestEdges } from '@dummy/CanvasDummy';
 import { VueFlow } from '@vue-flow/core';
 import { useVueFlow } from '@vue-flow/core';
@@ -23,9 +24,9 @@ onPaneReady(() => {
   sortPKFirst();
   autoLayout();
 });
-
 onEdgeMouseEnter(({ edge }) => highlightNodeColumnRelation(edge));
 onEdgeMouseLeave(unhighlightColumnRelationship);
+useUpdateEdgePosition();
 </script>
 
 <template>
