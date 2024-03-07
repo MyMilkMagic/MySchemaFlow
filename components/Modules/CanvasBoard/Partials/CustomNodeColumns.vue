@@ -43,7 +43,7 @@ const onClickChooseColumnIndex = async (index: number) => {
     }"
     @dblclick="onClickChooseColumnIndex(ind)"
   >
-    <span class="block flex-shrink-0 text-sm">
+    <span class="mr-1 block flex-shrink-0 text-sm">
       <span
         v-if="column.keyConstraint === 'PK'"
         class="group-focus-visible:text-white"
@@ -60,8 +60,8 @@ const onClickChooseColumnIndex = async (index: number) => {
         v-if="column.keyConstraint === 'FK'"
         class="group-focus-visible:text-white"
         :class="{
-          'text-amber-500': isDefault,
-          'text-amber-500 group-hover:text-white': isActive,
+          'text-cyan-600': isDefault,
+          'text-cyan-600 group-hover:text-white': isActive,
           'text-white': column.shouldHighlight,
           'text-slate-300': isFaded,
         }"
@@ -85,8 +85,8 @@ const onClickChooseColumnIndex = async (index: number) => {
     <span
       class="block w-full flex-grow truncate text-left text-sm group-focus-visible:text-white"
       :class="{
-        'text-blue-600': isDefault,
-        'text-blue-600 group-hover:text-white': isActive,
+        'text-amber-600': isDefault,
+        'text-amber-600 group-hover:text-white': isActive,
         'text-slate-300': isFaded,
         'text-white': column.shouldHighlight,
       }"
